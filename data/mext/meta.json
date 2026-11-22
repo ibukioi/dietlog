@@ -1,0 +1,36 @@
+{
+  "source": "日本食品標準成分表（八訂）増補2023年",
+  "publisher": "文部科学省",
+  "dataUpdated": "2026年3月27日",
+  "errataDate": "令和8年3月27日",
+  "files": {
+    "main": {
+      "url": "https://www.mext.go.jp/content/20260327-mxt_kagsei-mext-000029402_02.xlsx",
+      "file": "mext_main.xlsx",
+      "title": "日本食品標準成分表（八訂）増補2023年 第2章（データ）",
+      "sha256": "0d5a77077dd6cd91cbc2e6e317b8b218a38728c409eed452f1c10635a0d3099c",
+      "bytes": 1973402,
+      "downloadedAt": "2026-11-22T04:39:36.892Z"
+    },
+    "errata": {
+      "url": "https://www.mext.go.jp/content/20260327-mxt_kagsei-mext-000029402_16.xlsx",
+      "file": "mext_errata.xlsx",
+      "title": "正誤表（データ） 令和8年3月27日",
+      "sha256": "fb61037c7f66af0db1fb0729977913a629bc17097bc3ff7bf75217f9110acabb",
+      "bytes": 68693,
+      "downloadedAt": "2026-11-22T04:39:36.920Z"
+    }
+  },
+  "builtAt": "2026-11-22T04:40:18.503Z",
+  "foods": 2538,
+  "errata": {
+    "checked": 307,
+    "matched": 307,
+    "overwritten": [],
+    "skippedNonNumeric": 25
+  },
+  "cookedVariants": 394,
+  "unmatchedCookedFoods": [
+    "01174 こむぎ　［パン類］　角形食パン　焼き"
+  ]
+}

@@ -1,0 +1,8 @@
+node_modules
+.next
+drizzle
+data
+pnpm-lock.yaml
+src/components/ui
+docs
+*.md

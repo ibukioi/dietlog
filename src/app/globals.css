@@ -1,0 +1,149 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-noto), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-num: var(--font-outfit), var(--font-noto), sans-serif;
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* dietlog palette: 水の青を基調に、白と紺で静かにまとめる */
+  --paper: #f4f8fb;
+  --ink: #0e2a3b;
+  --ink-soft: #5a6f7d;
+  --brand: #1c86c8;
+  --brand-deep: #0b5f95;
+  --brand-soft: #e4f1fa;
+  --line: #dce6ee;
+
+  --g-energy: #1c86c8;
+  --g-protein: #3f63c9;
+  --g-fat: #e0a23a;
+  --g-carb: #2fa39a;
+  --g-salt: #8a7bc8;
+  --g-fiber: #4fae6c;
+  --g-other: #6d8797;
+  --g-warn: #e39b2d;
+  --g-over: #d8434e;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+  --secondary: #eaf2f8;
+  --secondary-foreground: var(--ink);
+  --muted: #edf3f7;
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--brand-soft);
+  --accent-foreground: var(--ink);
+  --destructive: #d8434e;
+  --border: var(--line);
+  --input: #cbd9e4;
+  --ring: var(--brand);
+  --chart-1: var(--g-energy);
+  --chart-2: var(--g-protein);
+  --chart-3: var(--g-fat);
+  --chart-4: var(--g-carb);
+  --chart-5: var(--g-salt);
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--brand-soft);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--brand);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ステータスパネル(HP ゲージ)— 淡い水色の面に、細いバーで静かに見せる */
+.status-window {
+  border-radius: 20px;
+  background: var(--brand-soft);
+  border: 1px solid #d0e4f2;
+}
+.hp-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: #e3ecf2;
+  overflow: visible;
+}
+.hp-track.hp-lg {
+  height: 14px;
+}
+.hp-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hp-unknown {
+  background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0 3px, transparent 3px 7px);
+}
+.hp-over {
+  background: repeating-linear-gradient(135deg, var(--g-over) 0 4px, #e9737b 4px 8px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hp-fill {
+    transition: none;
+  }
+}

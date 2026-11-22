@@ -1,0 +1,591 @@
+{
+  "$comment": "お試しモードのサンプルデータ(§8.1)。日付は今日からの相対日数。市販品は特定の商品ではなく一般的な表示例を模したサンプル値",
+  "profile": {
+    "ageYears": 32,
+    "birthMonth": 4,
+    "sex": "female",
+    "heightCm": 158,
+    "weightKg": 52,
+    "activityLevel": "II",
+    "lifeStage": "none",
+    "menstruation": true
+  },
+  "products": [
+    {
+      "key": "onigiri",
+      "name": "コンビニおにぎり 鮭(サンプル)",
+      "basis": "per_serving",
+      "servingSizeG": 110,
+      "servingLabel": "1個",
+      "nutrients": {
+        "ENERC_KCAL": 180,
+        "PROT-": 4.5,
+        "FAT-": 1.5,
+        "CHOCDF-": 38,
+        "NACL_EQ": 1.2
+      }
+    },
+    {
+      "key": "salad_chicken",
+      "name": "サラダチキン プレーン(サンプル)",
+      "basis": "per_serving",
+      "servingSizeG": 110,
+      "servingLabel": "1パック",
+      "nutrients": {
+        "ENERC_KCAL": 120,
+        "PROT-": 25,
+        "FAT-": 1.5,
+        "CHOCDF-": 0.5,
+        "NACL_EQ": 1.3
+      }
+    },
+    {
+      "key": "cup_noodle",
+      "name": "カップ麺 しょうゆ味(サンプル)",
+      "basis": "per_serving",
+      "servingSizeG": 78,
+      "servingLabel": "1食",
+      "nutrients": {
+        "ENERC_KCAL": 350,
+        "PROT-": 9,
+        "FAT-": 14,
+        "CHOCDF-": 46,
+        "NACL_EQ": 4.8
+      }
+    },
+    {
+      "key": "drink_yogurt",
+      "name": "のむヨーグルト(サンプル)",
+      "basis": "per_serving",
+      "servingSizeG": 100,
+      "servingLabel": "1本",
+      "nutrients": {
+        "ENERC_KCAL": 65,
+        "PROT-": 3.1,
+        "FAT-": 0.5,
+        "CHOCDF-": 12,
+        "NACL_EQ": 0.1,
+        "CA": 110
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "key": "teriyaki",
+      "name": "鶏むねの照り焼き",
+      "servings": 2,
+      "ingredients": [
+        {
+          "role": "ingredient",
+          "foodNo": "11220",
+          "amount": 250,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "saute"
+        },
+        {
+          "role": "oil",
+          "foodNo": "14006",
+          "amount": 8,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17007",
+          "amount": 1,
+          "unit": "tbsp",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "16025",
+          "amount": 1,
+          "unit": "tbsp",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "03003",
+          "amount": 1,
+          "unit": "tsp",
+          "weightBasis": "raw",
+          "method": "raw"
+        }
+      ]
+    },
+    {
+      "key": "ohitashi",
+      "name": "ほうれんそうのおひたし",
+      "servings": 2,
+      "ingredients": [
+        {
+          "role": "ingredient",
+          "foodNo": "06267",
+          "amount": 150,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "boil"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17007",
+          "amount": 1,
+          "unit": "tsp",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "05018",
+          "amount": 3,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        }
+      ]
+    },
+    {
+      "key": "misoshiru",
+      "name": "豆腐とわかめの味噌汁",
+      "servings": 2,
+      "ingredients": [
+        {
+          "role": "ingredient",
+          "foodNo": "04032",
+          "amount": 100,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "ingredient",
+          "foodNo": "09044",
+          "amount": 2,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17045",
+          "amount": 24,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17021",
+          "amount": 300,
+          "unit": "ml",
+          "weightBasis": "raw",
+          "method": "raw"
+        }
+      ]
+    },
+    {
+      "key": "salmon",
+      "name": "鮭の塩焼き",
+      "servings": 1,
+      "ingredients": [
+        {
+          "role": "ingredient",
+          "foodNo": "10134",
+          "amount": 80,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "grill"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17012",
+          "amount": 0.5,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        }
+      ]
+    },
+    {
+      "key": "yasaiitame",
+      "name": "豚肉の野菜炒め",
+      "servings": 1,
+      "ingredients": [
+        {
+          "role": "ingredient",
+          "foodNo": "06061",
+          "amount": 100,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "saute"
+        },
+        {
+          "role": "ingredient",
+          "foodNo": "06153",
+          "amount": 50,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "saute"
+        },
+        {
+          "role": "ingredient",
+          "foodNo": "06214",
+          "amount": 30,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "saute"
+        },
+        {
+          "role": "ingredient",
+          "foodNo": "06245",
+          "amount": 30,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "saute"
+        },
+        {
+          "role": "ingredient",
+          "foodNo": "11123",
+          "amount": 60,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "saute"
+        },
+        {
+          "role": "oil",
+          "foodNo": "14006",
+          "amount": 8,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17007",
+          "amount": 1,
+          "unit": "tsp",
+          "weightBasis": "raw",
+          "method": "raw"
+        },
+        {
+          "role": "seasoning",
+          "foodNo": "17012",
+          "amount": 0.5,
+          "unit": "g",
+          "weightBasis": "raw",
+          "method": "raw"
+        }
+      ]
+    }
+  ],
+  "days": {
+    "-6": {
+      "breakfast": [
+        {
+          "food": "01088",
+          "grams": 150
+        },
+        {
+          "recipe": "misoshiru",
+          "servings": 1
+        },
+        {
+          "food": "12005",
+          "grams": 50
+        }
+      ],
+      "lunch": [
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "salmon",
+          "servings": 1
+        },
+        {
+          "recipe": "ohitashi",
+          "servings": 1
+        }
+      ],
+      "dinner": [
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "teriyaki",
+          "servings": 1
+        },
+        {
+          "recipe": "ohitashi",
+          "servings": 1
+        }
+      ],
+      "snack": [
+        {
+          "product": "drink_yogurt",
+          "servings": 1
+        }
+      ]
+    },
+    "-5": {
+      "breakfast": [
+        {
+          "food": "01026",
+          "grams": 60
+        },
+        {
+          "food": "13025",
+          "grams": 100
+        },
+        {
+          "food": "07107",
+          "grams": 100
+        }
+      ],
+      "lunch": [
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "salmon",
+          "servings": 1
+        },
+        {
+          "recipe": "misoshiru",
+          "servings": 1
+        },
+        {
+          "recipe": "ohitashi",
+          "servings": 1
+        }
+      ],
+      "dinner": [
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "yasaiitame",
+          "servings": 1
+        }
+      ],
+      "snack": [
+        {
+          "food": "13025",
+          "grams": 100
+        }
+      ]
+    },
+    "-4": {
+      "breakfast": [
+        {
+          "food": "01088",
+          "grams": 150
+        },
+        {
+          "food": "04046",
+          "grams": 40
+        },
+        {
+          "recipe": "misoshiru",
+          "servings": 1
+        }
+      ],
+      "lunch": [
+        {
+          "product": "cup_noodle",
+          "servings": 1
+        },
+        {
+          "product": "onigiri",
+          "servings": 1
+        }
+      ],
+      "dinner": [
+        {
+          "food": "18036",
+          "grams": 250
+        },
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "ohitashi",
+          "servings": 1
+        }
+      ],
+      "snack": [
+        {
+          "food": "07148",
+          "grams": 150
+        }
+      ]
+    },
+    "-3": {
+      "breakfast": [
+        {
+          "food": "01026",
+          "grams": 60
+        },
+        {
+          "food": "12005",
+          "grams": 50
+        },
+        {
+          "food": "13003",
+          "grams": 200
+        }
+      ],
+      "lunch": [
+        {
+          "product": "onigiri",
+          "servings": 1
+        },
+        {
+          "product": "salad_chicken",
+          "servings": 1
+        }
+      ],
+      "dinner": [
+        {
+          "manual": {
+            "name": "外食のしょうゆラーメン(手入力・サンプル)",
+            "nutrients": {
+              "ENERC_KCAL": 650,
+              "PROT-": 25,
+              "FAT-": 22,
+              "CHOCDF-": 85,
+              "NACL_EQ": 6.5
+            }
+          }
+        }
+      ],
+      "snack": [
+        {
+          "product": "drink_yogurt",
+          "servings": 1
+        }
+      ]
+    },
+    "-2": {
+      "breakfast": [
+        {
+          "food": "01088",
+          "grams": 150
+        },
+        {
+          "recipe": "misoshiru",
+          "servings": 1
+        },
+        {
+          "food": "12005",
+          "grams": 50
+        }
+      ],
+      "lunch": [
+        {
+          "food": "18040",
+          "grams": 250
+        },
+        {
+          "food": "01088",
+          "grams": 200
+        }
+      ],
+      "dinner": [
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "teriyaki",
+          "servings": 1
+        },
+        {
+          "recipe": "ohitashi",
+          "servings": 1
+        }
+      ],
+      "snack": [
+        {
+          "food": "07027",
+          "grams": 100
+        }
+      ]
+    },
+    "-1": {
+      "breakfast": [
+        {
+          "food": "01026",
+          "grams": 60
+        },
+        {
+          "food": "13025",
+          "grams": 100
+        },
+        {
+          "food": "07107",
+          "grams": 100
+        }
+      ],
+      "lunch": [
+        {
+          "food": "18002",
+          "grams": 150
+        },
+        {
+          "food": "01088",
+          "grams": 180
+        }
+      ],
+      "dinner": [
+        {
+          "food": "01088",
+          "grams": 180
+        },
+        {
+          "recipe": "salmon",
+          "servings": 1
+        },
+        {
+          "recipe": "misoshiru",
+          "servings": 1
+        },
+        {
+          "recipe": "ohitashi",
+          "servings": 1
+        }
+      ],
+      "snack": [
+        {
+          "food": "07148",
+          "grams": 100
+        }
+      ]
+    },
+    "0": {
+      "breakfast": [
+        {
+          "food": "01088",
+          "grams": 150
+        },
+        {
+          "food": "04046",
+          "grams": 40
+        },
+        {
+          "recipe": "misoshiru",
+          "servings": 1
+        }
+      ]
+    }
+  }
+}

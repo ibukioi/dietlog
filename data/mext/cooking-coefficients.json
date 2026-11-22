@@ -1,0 +1,426 @@
+[
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "01",
+  "weightChangeRate": 235,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群01の中央値",
+  "sampleSize": 12
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "*",
+  "weightChangeRate": 94,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 175
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "01",
+  "weightChangeRate": 100,
+  "oilAbsorptionPct": 36.9,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群01の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "*",
+  "weightChangeRate": 81,
+  "oilAbsorptionPct": 9.1,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 10
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "01",
+  "weightChangeRate": 100,
+  "oilAbsorptionPct": 4,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群01の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "*",
+  "weightChangeRate": 87,
+  "oilAbsorptionPct": 3.9,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 46
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "02",
+  "weightChangeRate": 410,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群02の中央値",
+  "sampleSize": 7
+ },
+ {
+  "cookingMethodCode": "simmer",
+  "foodCategory": "02",
+  "weightChangeRate": 97,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群02の中央値",
+  "sampleSize": 9
+ },
+ {
+  "cookingMethodCode": "simmer",
+  "foodCategory": "*",
+  "weightChangeRate": 87,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 38
+ },
+ {
+  "cookingMethodCode": "steam",
+  "foodCategory": "02",
+  "weightChangeRate": 99,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群02の中央値",
+  "sampleSize": 4
+ },
+ {
+  "cookingMethodCode": "steam",
+  "foodCategory": "*",
+  "weightChangeRate": 90,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 10
+ },
+ {
+  "cookingMethodCode": "tempura",
+  "foodCategory": "02",
+  "weightChangeRate": 98,
+  "oilAbsorptionPct": 6.2,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群02の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "tempura",
+  "foodCategory": "*",
+  "weightChangeRate": 102,
+  "oilAbsorptionPct": 8,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 12
+ },
+ {
+  "cookingMethodCode": "microwave",
+  "foodCategory": "02",
+  "weightChangeRate": 96,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群02の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "microwave",
+  "foodCategory": "*",
+  "weightChangeRate": 90,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 8
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "04",
+  "weightChangeRate": 220,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群04の中央値",
+  "sampleSize": 15
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "04",
+  "weightChangeRate": 99,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群04の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "*",
+  "weightChangeRate": 73,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 86
+ },
+ {
+  "cookingMethodCode": "simmer",
+  "foodCategory": "04",
+  "weightChangeRate": 430,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群04の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "05",
+  "weightChangeRate": 98,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群05の中央値",
+  "sampleSize": 4
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "06",
+  "weightChangeRate": 91,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群06の中央値",
+  "sampleSize": 93
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "06",
+  "weightChangeRate": 88,
+  "oilAbsorptionPct": 4,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群06の中央値",
+  "sampleSize": 28
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "06",
+  "weightChangeRate": 67,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群06の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "microwave",
+  "foodCategory": "06",
+  "weightChangeRate": 90,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群06の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "tempura",
+  "foodCategory": "06",
+  "weightChangeRate": 110,
+  "oilAbsorptionPct": 15.3,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群06の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "06",
+  "weightChangeRate": 83,
+  "oilAbsorptionPct": 9,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群06の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "07",
+  "weightChangeRate": 70,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群07の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "08",
+  "weightChangeRate": 94,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群08の中央値",
+  "sampleSize": 15
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "08",
+  "weightChangeRate": 90,
+  "oilAbsorptionPct": 3.4,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群08の中央値",
+  "sampleSize": 8
+ },
+ {
+  "cookingMethodCode": "tempura",
+  "foodCategory": "08",
+  "weightChangeRate": 171,
+  "oilAbsorptionPct": 26.4,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群08の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "08",
+  "weightChangeRate": 63,
+  "oilAbsorptionPct": 8.5,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群08の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "08",
+  "weightChangeRate": 65,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群08の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "simmer",
+  "foodCategory": "09",
+  "weightChangeRate": 706,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群09の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "09",
+  "weightChangeRate": 990,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群09の中央値",
+  "sampleSize": 3
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "09",
+  "weightChangeRate": 870,
+  "oilAbsorptionPct": 37.7,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群09の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "simmer",
+  "foodCategory": "10",
+  "weightChangeRate": 83,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 26
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "10",
+  "weightChangeRate": 76,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 48
+ },
+ {
+  "cookingMethodCode": "fry",
+  "foodCategory": "10",
+  "weightChangeRate": 114,
+  "oilAbsorptionPct": 14.1,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 6
+ },
+ {
+  "cookingMethodCode": "fry",
+  "foodCategory": "*",
+  "weightChangeRate": 112,
+  "oilAbsorptionPct": 11.5,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した全食品群の中央値",
+  "sampleSize": 9
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "10",
+  "weightChangeRate": 74,
+  "oilAbsorptionPct": 5.6,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "steam",
+  "foodCategory": "10",
+  "weightChangeRate": 85,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 6
+ },
+ {
+  "cookingMethodCode": "tempura",
+  "foodCategory": "10",
+  "weightChangeRate": 102,
+  "oilAbsorptionPct": 4.6,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 7
+ },
+ {
+  "cookingMethodCode": "microwave",
+  "foodCategory": "10",
+  "weightChangeRate": 81,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 4
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "10",
+  "weightChangeRate": 75,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 5
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "10",
+  "weightChangeRate": 79,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群10の中央値",
+  "sampleSize": 7
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "11",
+  "weightChangeRate": 70,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群11の中央値",
+  "sampleSize": 18
+ },
+ {
+  "cookingMethodCode": "grill",
+  "foodCategory": "11",
+  "weightChangeRate": 71,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群11の中央値",
+  "sampleSize": 32
+ },
+ {
+  "cookingMethodCode": "fry",
+  "foodCategory": "11",
+  "weightChangeRate": 102,
+  "oilAbsorptionPct": 10.8,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群11の中央値",
+  "sampleSize": 3
+ },
+ {
+  "cookingMethodCode": "saute",
+  "foodCategory": "11",
+  "weightChangeRate": 71,
+  "oilAbsorptionPct": 1.3,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群11の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "11",
+  "weightChangeRate": 79,
+  "oilAbsorptionPct": 2.2,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群11の中央値",
+  "sampleSize": 2
+ },
+ {
+  "cookingMethodCode": "tempura",
+  "foodCategory": "11",
+  "weightChangeRate": 92,
+  "oilAbsorptionPct": 6,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群11の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "boil",
+  "foodCategory": "12",
+  "weightChangeRate": 100,
+  "oilAbsorptionPct": 0,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群12の中央値",
+  "sampleSize": 1
+ },
+ {
+  "cookingMethodCode": "deep_fry",
+  "foodCategory": "12",
+  "weightChangeRate": 88,
+  "oilAbsorptionPct": 17.9,
+  "basis": "表12の重量変化率と調理前後の脂質から算出した食品群12の中央値",
+  "sampleSize": 1
+ }
+]

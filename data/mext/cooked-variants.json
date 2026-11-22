@@ -1,0 +1,3154 @@
+[
+ {
+  "rawFoodNo": "01008",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01009",
+  "weightChangeRate": 260,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01171",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "01172",
+  "weightChangeRate": 85,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01038",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01039",
+  "weightChangeRate": 180,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01041",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01042",
+  "weightChangeRate": 240,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01043",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01044",
+  "weightChangeRate": 270,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01045",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01046",
+  "weightChangeRate": 290,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01047",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01048",
+  "weightChangeRate": 190,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01050",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01051",
+  "weightChangeRate": 250,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01052",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01053",
+  "weightChangeRate": 170,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01054",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01055",
+  "weightChangeRate": 230,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01063",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01064",
+  "weightChangeRate": 220,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01063",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "01173",
+  "weightChangeRate": 100,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01179",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "01180",
+  "weightChangeRate": 115,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01127",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01128",
+  "weightChangeRate": 190,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "01129",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "01130",
+  "weightChangeRate": 260,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02068",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02069",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02001",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02041",
+  "weightChangeRate": 92,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02043",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02044",
+  "weightChangeRate": 430,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02045",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "02046",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02045",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "02047",
+  "weightChangeRate": 98,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02006",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "02007",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02048",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "02049",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02010",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02011",
+  "weightChangeRate": 95,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02050",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02051",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02052",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02053",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02013",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02014",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02015",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02016",
+  "weightChangeRate": 110,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02063",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "02064",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02017",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02019",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02017",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "02018",
+  "weightChangeRate": 93,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02017",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "02066",
+  "weightChangeRate": 93,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02054",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02055",
+  "weightChangeRate": 94,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02023",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "02024",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02036",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02037",
+  "weightChangeRate": 250,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02038",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02057",
+  "weightChangeRate": 410,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02059",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02060",
+  "weightChangeRate": 440,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02039",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02061",
+  "weightChangeRate": 440,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "02040",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "02062",
+  "weightChangeRate": 410,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04001",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04002",
+  "weightChangeRate": 230,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04007",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04008",
+  "weightChangeRate": 220,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04012",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04013",
+  "weightChangeRate": 220,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04074",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04075",
+  "weightChangeRate": 220,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04017",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04018",
+  "weightChangeRate": 230,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04104",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04105",
+  "weightChangeRate": 217,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04023",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04024",
+  "weightChangeRate": 220,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04077",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04106",
+  "weightChangeRate": 223,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04084",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04086",
+  "weightChangeRate": 210,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04084",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "04085",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04042",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "04087",
+  "weightChangeRate": 430,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04064",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04092",
+  "weightChangeRate": 210,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04065",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04066",
+  "weightChangeRate": 220,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04068",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04069",
+  "weightChangeRate": 260,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04070",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04093",
+  "weightChangeRate": 210,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04071",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04072",
+  "weightChangeRate": 240,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "04073",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "04094",
+  "weightChangeRate": 200,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "05008",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "05009",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "05010",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "05011",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "05024",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "05043",
+  "weightChangeRate": 230,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "05047",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "05048",
+  "weightChangeRate": 89,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06001",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06002",
+  "weightChangeRate": 110,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06003",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06004",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06005",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06006",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06007",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06008",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06007",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06327",
+  "weightChangeRate": 90,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06010",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06011",
+  "weightChangeRate": 94,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06015",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06016",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06329",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06330",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06329",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06331",
+  "weightChangeRate": 72,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06020",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06021",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06023",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06024",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06025",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06374",
+  "weightChangeRate": 92,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06025",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06375",
+  "weightChangeRate": 94,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06027",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06028",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06030",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06031",
+  "weightChangeRate": 93,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06032",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06033",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06034",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06035",
+  "weightChangeRate": 93,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06036",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06037",
+  "weightChangeRate": 87,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06038",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06039",
+  "weightChangeRate": 89,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06046",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06047",
+  "weightChangeRate": 94,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06048",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06049",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06048",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "06332",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06054",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06055",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06056",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06057",
+  "weightChangeRate": 530,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06058",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06059",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06061",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06062",
+  "weightChangeRate": 89,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06061",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06333",
+  "weightChangeRate": 80,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06075",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06076",
+  "weightChangeRate": 84,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06078",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06079",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06081",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06082",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06084",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06085",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06086",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06087",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06089",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06090",
+  "weightChangeRate": 75,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06093",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06094",
+  "weightChangeRate": 99,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06097",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06098",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06099",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06100",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06109",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06110",
+  "weightChangeRate": 60,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06111",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06112",
+  "weightChangeRate": 760,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06117",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06118",
+  "weightChangeRate": 92,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06120",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06121",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06122",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06123",
+  "weightChangeRate": 630,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06124",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06125",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06126",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06127",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06130",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06131",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06132",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06133",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06134",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06135",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06136",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06334",
+  "weightChangeRate": 560,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06136",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06335",
+  "weightChangeRate": 350,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06149",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06150",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06153",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06155",
+  "weightChangeRate": 89,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06153",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06336",
+  "weightChangeRate": 70,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06157",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06158",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06376",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06377",
+  "weightChangeRate": 75,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06160",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06161",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06160",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06338",
+  "weightChangeRate": 87,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06162",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06163",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06165",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06166",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06167",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06168",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06169",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06170",
+  "weightChangeRate": 91,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06173",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06174",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06175",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06176",
+  "weightChangeRate": 110,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06175",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "06339",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06178",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06378",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06178",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06379",
+  "weightChangeRate": 98,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06189",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06190",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06191",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06192",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06191",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06342",
+  "weightChangeRate": 76,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06191",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "06343",
+  "weightChangeRate": 110,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06193",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "06194",
+  "weightChangeRate": 93,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06201",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06202",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06203",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06204",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06205",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06206",
+  "weightChangeRate": 91,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06207",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06208",
+  "weightChangeRate": 63,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06207",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06344",
+  "weightChangeRate": 83,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06212",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06213",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06214",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06215",
+  "weightChangeRate": 87,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06214",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06345",
+  "weightChangeRate": 69,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06214",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "06346",
+  "weightChangeRate": 72,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06216",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06380",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06216",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06381",
+  "weightChangeRate": 87,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06218",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06219",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06220",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06221",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06223",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06349",
+  "weightChangeRate": 83,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06224",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06225",
+  "weightChangeRate": 99,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06226",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06350",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06226",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06351",
+  "weightChangeRate": 94,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06227",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06352",
+  "weightChangeRate": 84,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06233",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06234",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06243",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06244",
+  "weightChangeRate": 94,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06245",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06246",
+  "weightChangeRate": 96,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06247",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06248",
+  "weightChangeRate": 96,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06393",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06394",
+  "weightChangeRate": 85,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06249",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06250",
+  "weightChangeRate": 96,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06256",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06257",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06258",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06259",
+  "weightChangeRate": 140,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06261",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06262",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06263",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06264",
+  "weightChangeRate": 111,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06263",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "06395",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06263",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "06396",
+  "weightChangeRate": 55,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06263",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06397",
+  "weightChangeRate": 76,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06265",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06266",
+  "weightChangeRate": 54,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06267",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06268",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06267",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06359",
+  "weightChangeRate": 58,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06355",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06357",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06356",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06358",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06269",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06372",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06269",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06373",
+  "weightChangeRate": 80,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06072",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06073",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06274",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06275",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06276",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06277",
+  "weightChangeRate": 82,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06278",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06279",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06283",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06284",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06287",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06288",
+  "weightChangeRate": 85,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06287",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06412",
+  "weightChangeRate": 92,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06289",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06290",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06289",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06398",
+  "weightChangeRate": 93,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06291",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06292",
+  "weightChangeRate": 84,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06291",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "06413",
+  "weightChangeRate": 89,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06293",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06294",
+  "weightChangeRate": 150,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06296",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06297",
+  "weightChangeRate": 96,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06298",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06299",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06301",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06302",
+  "weightChangeRate": 89,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06303",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06304",
+  "weightChangeRate": 97,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06308",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06309",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06310",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06311",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06317",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06318",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06320",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06321",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "06324",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "06325",
+  "weightChangeRate": 110,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "07097",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "07177",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "07176",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "07180",
+  "weightChangeRate": 67,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08001",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08002",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08001",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08037",
+  "weightChangeRate": 90,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08054",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08005",
+  "weightChangeRate": 490,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08054",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08038",
+  "weightChangeRate": 290,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08006",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08007",
+  "weightChangeRate": 1000,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08008",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08009",
+  "weightChangeRate": 1500,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08039",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08040",
+  "weightChangeRate": 110,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08039",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08041",
+  "weightChangeRate": 92,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08039",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "08057",
+  "weightChangeRate": 150,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08042",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08043",
+  "weightChangeRate": 110,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08042",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08044",
+  "weightChangeRate": 84,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08013",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08014",
+  "weightChangeRate": 570,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08015",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08045",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08016",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08017",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08016",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08046",
+  "weightChangeRate": 90,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08016",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "08055",
+  "weightChangeRate": 63,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08016",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "08056",
+  "weightChangeRate": 191,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08018",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08047",
+  "weightChangeRate": 69,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08020",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08021",
+  "weightChangeRate": 100,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08025",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08048",
+  "weightChangeRate": 76,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08025",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "08049",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08025",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08050",
+  "weightChangeRate": 89,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08026",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08027",
+  "weightChangeRate": 94,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08028",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08029",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08028",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08051",
+  "weightChangeRate": 73,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08031",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "08032",
+  "weightChangeRate": 69,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "08031",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "08052",
+  "weightChangeRate": 79,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09017",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "09056",
+  "weightChangeRate": 350,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09050",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "09051",
+  "weightChangeRate": 990,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09050",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "09052",
+  "weightChangeRate": 870,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09053",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "09054",
+  "weightChangeRate": 990,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09053",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "09055",
+  "weightChangeRate": 870,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09041",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "09060",
+  "weightChangeRate": 1061,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "09045",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "09057",
+  "weightChangeRate": 250,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10003",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10004",
+  "weightChangeRate": 87,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10003",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10005",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10003",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "10390",
+  "weightChangeRate": 116,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10006",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10007",
+  "weightChangeRate": 80,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10391",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "10392",
+  "weightChangeRate": 79,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10393",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10394",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10008",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10009",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10008",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10010",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10457",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10458",
+  "weightChangeRate": 74,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10011",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10012",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10015",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "10016",
+  "weightChangeRate": 87,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10018",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10019",
+  "weightChangeRate": 80,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10018",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10020",
+  "weightChangeRate": 74,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10021",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10022",
+  "weightChangeRate": 67,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10023",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10024",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10025",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10026",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10027",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10028",
+  "weightChangeRate": 76,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10047",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10048",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10047",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10049",
+  "weightChangeRate": 75,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10047",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "10395",
+  "weightChangeRate": 118,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10053",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10054",
+  "weightChangeRate": 75,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10080",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10081",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10085",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10398",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10098",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10099",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10100",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10101",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10100",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10102",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10103",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10399",
+  "weightChangeRate": 61,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10104",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10105",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10109",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10400",
+  "weightChangeRate": 105,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10115",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10401",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10117",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10118",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10119",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10120",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10126",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10127",
+  "weightChangeRate": 76,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10130",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10131",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10132",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10133",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10134",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10135",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10134",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10136",
+  "weightChangeRate": 75,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10137",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10138",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10144",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10433",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10144",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "10434",
+  "weightChangeRate": 84,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10144",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "10435",
+  "weightChangeRate": 91,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10144",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10145",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10144",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "10436",
+  "weightChangeRate": 79,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10144",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10437",
+  "weightChangeRate": 102,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10438",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10439",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10438",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "10440",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10438",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "10441",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10438",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10442",
+  "weightChangeRate": 75,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10438",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "10443",
+  "weightChangeRate": 68,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10438",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10444",
+  "weightChangeRate": 96,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10146",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10147",
+  "weightChangeRate": 74,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10149",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10150",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10152",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10153",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10154",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10155",
+  "weightChangeRate": 84,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10154",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10156",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10154",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "10403",
+  "weightChangeRate": 112,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10404",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10405",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10404",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10406",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10158",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10159",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10158",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10160",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10171",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10172",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10173",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10174",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10180",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10181",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10182",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10183",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10193",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10194",
+  "weightChangeRate": 85,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10193",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10195",
+  "weightChangeRate": 82,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10199",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "10409",
+  "weightChangeRate": 105,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10202",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10203",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10205",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10206",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10213",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10214",
+  "weightChangeRate": 90,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10238",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10239",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10241",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10242",
+  "weightChangeRate": 82,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10248",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10412",
+  "weightChangeRate": 89,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10450",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10451",
+  "weightChangeRate": 87,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10450",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "10452",
+  "weightChangeRate": 84,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10450",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "10453",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10450",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10454",
+  "weightChangeRate": 82,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10450",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "10455",
+  "weightChangeRate": 86,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10450",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10456",
+  "weightChangeRate": 97,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10459",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10460",
+  "weightChangeRate": 83,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10459",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "10461",
+  "weightChangeRate": 85,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10459",
+  "cookingMethodCode": "microwave",
+  "cookedFoodNo": "10462",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10459",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10463",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10459",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "10464",
+  "weightChangeRate": 75,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10459",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10465",
+  "weightChangeRate": 94,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10268",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10269",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10281",
+  "cookingMethodCode": "steam",
+  "cookedFoodNo": "10466",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10292",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10293",
+  "weightChangeRate": 64,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10292",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "10430",
+  "weightChangeRate": 119,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10295",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10296",
+  "weightChangeRate": 88,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10297",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10413",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10306",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10307",
+  "weightChangeRate": 64,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10306",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10308",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10311",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10312",
+  "weightChangeRate": 82,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10313",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10414",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10467",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10468",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10467",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10469",
+  "weightChangeRate": 84,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10321",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10322",
+  "weightChangeRate": 95,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10321",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10323",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10415",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10416",
+  "weightChangeRate": 102,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10333",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10334",
+  "weightChangeRate": 82,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10335",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10336",
+  "weightChangeRate": 74,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10338",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10339",
+  "weightChangeRate": 74,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10345",
+  "cookingMethodCode": "simmer",
+  "cookedFoodNo": "10346",
+  "weightChangeRate": 76,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10345",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "10347",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10418",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "10419",
+  "weightChangeRate": 119,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10418",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "10470",
+  "weightChangeRate": 95,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10348",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10349",
+  "weightChangeRate": 46,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10472",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "10362",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10472",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "10473",
+  "weightChangeRate": 67,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "10472",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "10474",
+  "weightChangeRate": 69,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11011",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11249",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11011",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11248",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11020",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11251",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11020",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11250",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11032",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11301",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11032",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11302",
+  "weightChangeRate": 76,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11037",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11039",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11037",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11038",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11046",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11252",
+  "weightChangeRate": 81,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11048",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11050",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11048",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11049",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11059",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11253",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11254",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11256",
+  "weightChangeRate": 78,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11254",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11255",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11262",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11264",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11262",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11263",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11067",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11269",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11067",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11268",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11076",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11271",
+  "weightChangeRate": 58,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11076",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11270",
+  "weightChangeRate": 67,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11089",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11272",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11090",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11273",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11274",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11296",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11274",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11297",
+  "weightChangeRate": 69,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11123",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11125",
+  "weightChangeRate": 77,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11123",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11124",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11129",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11277",
+  "weightChangeRate": 74,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11131",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11133",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11131",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11132",
+  "weightChangeRate": 71,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11140",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11278",
+  "weightChangeRate": 58,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11163",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11280",
+  "weightChangeRate": 69,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11312",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11313",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11176",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11303",
+  "weightChangeRate": 86,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11176",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11304",
+  "weightChangeRate": 79,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11176",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "11305",
+  "weightChangeRate": 132,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11183",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11314",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11183",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11315",
+  "weightChangeRate": 65,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11183",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "11316",
+  "weightChangeRate": 77,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11186",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11306",
+  "weightChangeRate": 98,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11186",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11307",
+  "weightChangeRate": 93,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11186",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "11308",
+  "weightChangeRate": 102,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11199",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11281",
+  "weightChangeRate": 67,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11202",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11282",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11203",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11283",
+  "weightChangeRate": 66,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11219",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11287",
+  "weightChangeRate": 62,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11220",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11288",
+  "weightChangeRate": 61,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11221",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11223",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11221",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11222",
+  "weightChangeRate": 61,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11221",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "11289",
+  "weightChangeRate": 75,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11224",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11226",
+  "weightChangeRate": 70,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11224",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11225",
+  "weightChangeRate": 72,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11224",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "11290",
+  "weightChangeRate": 82,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11227",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "11229",
+  "weightChangeRate": 76,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11227",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11228",
+  "weightChangeRate": 73,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11227",
+  "cookingMethodCode": "saute",
+  "cookedFoodNo": "11298",
+  "weightChangeRate": 64,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11227",
+  "cookingMethodCode": "fry",
+  "cookedFoodNo": "11300",
+  "weightChangeRate": 91,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11227",
+  "cookingMethodCode": "tempura",
+  "cookedFoodNo": "11299",
+  "weightChangeRate": 92,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "11230",
+  "cookingMethodCode": "grill",
+  "cookedFoodNo": "11291",
+  "weightChangeRate": 62,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "12004",
+  "cookingMethodCode": "boil",
+  "cookedFoodNo": "12005",
+  "weightChangeRate": 99.7,
+  "includesOil": false,
+  "source": "表12(重量変化率)・食品名の対応"
+ },
+ {
+  "rawFoodNo": "12004",
+  "cookingMethodCode": "deep_fry",
+  "cookedFoodNo": "12023",
+  "weightChangeRate": 88,
+  "includesOil": true,
+  "source": "表12(重量変化率)・食品名の対応"
+ }
+]

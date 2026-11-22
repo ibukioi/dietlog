@@ -1,0 +1,139 @@
+/**
+ * DB を使う結合テスト(§1.3 リポジトリ/DB・§8.2 データ分離)
+ * 一時ファイルの SQLite にマイグレーションとマスタデータを入れて検証する。
+ */
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
+
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+
+const dir = mkdtempSync(path.join(tmpdir(), "dietlog-test-"));
+const url = `file:${path.join(dir, "test.db")}`;
+process.env.DATABASE_URL = url;
+
+type Mods = {
+  db: typeof import("@/server/db/client").db;
+  s: typeof import("@/server/db/schema");
+  meals: typeof import("@/server/repositories/meals");
+  products: typeof import("@/server/repositories/products");
+  account: typeof import("@/server/repositories/account");
+  guest: typeof import("@/server/services/guest");
+  cleanup: typeof import("@/server/services/cleanup");
+};
+let m: Mods;
+
+async function createUser(id: string, isAnonymous: boolean, guestExpiresAt: Date | null = null) {
+  await m.db.insert(m.s.user).values({ id, name: id, email: `${id}@example.invalid`, isAnonymous, guestExpiresAt });
+}
+
+const item = (name: string) => ({
+  date: "2026-11-20",
+  mealType: "lunch" as const,
+  kind: "manual" as const,
+  name,
+  quantity: 1,
+  unit: "食",
+  grams: null,
+  nutrients: { ENERC_KCAL: 500, "PROT-": 20 },
+  isEstimate: false,
+  sourceLabel: "手入力",
+});
+
+beforeAll(async () => {
+  const env = { ...process.env, DATABASE_URL: url };
+  execFileSync("pnpm", ["-s", "db:migrate"], { env, stdio: "ignore" });
+  execFileSync("pnpm", ["-s", "db:seed"], { env, stdio: "ignore" });
+  m = {
+    db: (await import("@/server/db/client")).db,
+    s: await import("@/server/db/schema"),
+    meals: await import("@/server/repositories/meals"),
+    products: await import("@/server/repositories/products"),
+    account: await import("@/server/repositories/account"),
+    guest: await import("@/server/services/guest"),
+    cleanup: await import("@/server/services/cleanup"),
+  };
+  await createUser("alice", true, new Date("2026-12-01"));
+  await createUser("bob", true, new Date("2026-12-01"));
+}, 120_000);
+
+afterAll(() => rmSync(dir, { recursive: true, force: true }));
+
+describe("ユーザー間のデータ分離", () => {
+  it("他人の記録は一覧に出ない", async () => {
+    await m.meals.addMealItem("alice", item("alice のランチ"));
+    await m.meals.addMealItem("bob", item("bob のランチ"));
+    const a = await m.meals.listItemsInRange("alice", "2026-11-20", "2026-11-20");
+    expect(a.map((i) => i.nameSnapshot)).toEqual(["alice のランチ"]);
+  });
+
+  it("他人の記録 ID を指定しても削除できない", async () => {
+    const [bobs] = await m.meals.listItemsInRange("bob", "2026-11-20", "2026-11-20");
+    expect(await m.meals.deleteMealItem("alice", bobs.id)).toBe(false);
+    expect(await m.meals.listItemsInRange("bob", "2026-11-20", "2026-11-20")).toHaveLength(1);
+    expect(await m.meals.deleteMealItem("bob", bobs.id)).toBe(true);
+  });
+
+  it("他人の商品は取得・更新できない", async () => {
+    const id = await m.products.saveMyProduct("alice", {
+      source: "manual",
+      externalRef: null,
+      name: "alice の商品",
+      brand: null,
+      basis: "per_serving",
+      servingSizeG: null,
+      servingLabel: "1個",
+      nutrientsJson: { ENERC_KCAL: 100 },
+      isEstimate: false,
+    });
+    expect(await m.products.getMyProduct("bob", id)).toBeNull();
+    await expect(
+      m.products.saveMyProduct(
+        "bob",
+        {
+          source: "manual",
+          externalRef: null,
+          name: "乗っ取り",
+          brand: null,
+          basis: "per_serving",
+          servingSizeG: null,
+          servingLabel: null,
+          nutrientsJson: {},
+          isEstimate: false,
+        },
+        id,
+      ),
+    ).rejects.toThrow();
+    expect((await m.products.getMyProduct("alice", id))?.name).toBe("alice の商品");
+  });
+});
+
+describe("お試しモード", () => {
+  it("サンプルデータは今日から相対の日付で入る", async () => {
+    await createUser("guest1", true);
+    const now = new Date("2026-11-22T03:00:00Z");
+    const r = await m.guest.seedGuest("guest1", now);
+    expect(r.items).toBeGreaterThan(30);
+    const items = await m.meals.listItemsInRange("guest1", "2026-11-16", "2026-11-22");
+    expect(new Set(items.map((i) => i.eatenOn)).size).toBe(7);
+    expect(r.expires.getTime() - now.getTime()).toBe(14 * 86_400_000);
+  }, 60_000);
+
+  it("本登録で記録を引き継ぐ", async () => {
+    await createUser("member1", false);
+    await m.account.transferUserData(m.db, "guest1", "member1");
+    expect(await m.meals.listItemsInRange("guest1", "2026-11-01", "2026-11-30")).toHaveLength(0);
+    expect((await m.meals.listItemsInRange("member1", "2026-11-01", "2026-11-30")).length).toBeGreaterThan(30);
+  });
+
+  it("期限切れのお試しユーザーは記録ごと削除される", async () => {
+    await createUser("old-guest", true, new Date("2026-11-01"));
+    await m.meals.addMealItem("old-guest", item("古い記録"));
+    const r = await m.cleanup.cleanupExpired(new Date("2026-11-22"));
+    expect(r.expiredGuests).toBe(1);
+    expect(await m.meals.listItemsInRange("old-guest", "2026-11-01", "2026-11-30")).toHaveLength(0);
+    // 期限内のユーザーは残る
+    expect(await m.meals.listItemsInRange("alice", "2026-11-20", "2026-11-20")).toHaveLength(1);
+  });
+});

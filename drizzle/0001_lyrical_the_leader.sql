@@ -1,0 +1,1 @@
+ALTER TABLE `mext_food` ADD `popularity` integer DEFAULT 0 NOT NULL;
