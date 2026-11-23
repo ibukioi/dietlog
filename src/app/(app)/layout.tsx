@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { AppNav, MobileNav } from "@/components/app-nav";
+import { SignOutButton } from "@/components/sign-out-button";
 import { SiteFooter } from "@/components/site-footer";
 import { Wordmark } from "@/components/wordmark";
 import { requireUser } from "@/server/auth/session";
@@ -35,7 +36,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <header className="sticky top-0 z-30 border-b border-border bg-white/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4">
           <Wordmark href="/home" />
-          <AppNav />
+          <div className="flex min-w-0 items-center gap-2">
+            <AppNav />
+            {!user.isAnonymous && <SignOutButton className="shrink-0" labelClassName="md:sr-only lg:not-sr-only" />}
+          </div>
         </div>
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>

@@ -109,5 +109,6 @@ export async function deleteAccountAction() {
 
 export async function signOutAction() {
   await auth.api.signOut({ headers: await headers() });
+  revalidatePath("/", "layout");
   redirect("/");
 }

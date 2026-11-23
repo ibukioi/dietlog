@@ -32,7 +32,7 @@ export function AppNav() {
           href={href}
           aria-current={active(href) ? "page" : undefined}
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:text-[var(--ink)]",
+            "inline-flex items-center gap-1.5 rounded-full px-2.5 py-2 text-sm whitespace-nowrap text-muted-foreground transition-colors hover:text-[var(--ink)] lg:px-3.5",
             active(href) && "bg-[var(--brand-soft)] font-medium text-[var(--brand-deep)]",
           )}
         >

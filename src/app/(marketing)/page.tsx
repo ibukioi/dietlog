@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Suspense } from "react";
 
 import { Broccoli, Fish, Onigiri, RiceBowl, Tomato } from "@/components/food-illustrations";
 import { HpGauge } from "@/components/hp-gauge";
+import { SignOutButton } from "@/components/sign-out-button";
 import { SiteFooter } from "@/components/site-footer";
 import { Wordmark } from "@/components/wordmark";
 import { buttonVariants } from "@/components/ui/button";
@@ -33,18 +33,43 @@ const demo = [
   ),
 ];
 
-async function AccountLinks() {
+const HERO_BUTTON = "h-12 rounded-full px-7 text-base";
+
+async function HeroActions() {
   const user = await getCurrentUser();
-  if (!user) return isGithubEnabled ? <GithubLoginButton label="GitHub でログイン" /> : null;
+  if (!user) {
+    return (
+      <>
+        <div className="flex flex-wrap items-start gap-3">
+          <StartGuestButton />
+          {isGithubEnabled && <GithubLoginButton label="GitHub でログイン" />}
+        </div>
+        <p className="text-xs text-[var(--ink-soft)]">
+          登録は不要です。6 日分のサンプル記録が入った状態で始まり、データは 14 日後に自動で削除されます。
+        </p>
+      </>
+    );
+  }
   return (
     <>
-      <Link
-        href="/home"
-        className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-12 rounded-full bg-white px-7 text-base")}
-      >
-        続きから使う
-      </Link>
-      {user.isAnonymous && isGithubEnabled && <GithubLoginButton label="GitHub で本登録" />}
+      <div className="flex flex-wrap items-start gap-3">
+        <Link
+          href="/home"
+          className={cn(buttonVariants({ size: "lg" }), HERO_BUTTON, "shadow-[var(--brand)]/25 shadow-md")}
+        >
+          続きから使う
+        </Link>
+        {user.isAnonymous ? (
+          isGithubEnabled && <GithubLoginButton label="GitHub で本登録" />
+        ) : (
+          <SignOutButton size="lg" className={cn(HERO_BUTTON, "bg-white")} />
+        )}
+      </div>
+      {user.isAnonymous && (
+        <p className="text-xs text-[var(--ink-soft)]">
+          お試しモードで利用中です。本登録すると、これまでの記録を引き継げます。
+        </p>
+      )}
     </>
   );
 }
@@ -90,15 +115,7 @@ export default function LandingPage() {
               <p className="max-w-[34em] leading-loose text-[var(--ink-soft)]">
                 食材の重さと調理法を選ぶと、日本食品標準成分表の「ゆで」「油いため」などの調理後データで計算します。外食や市販品は商品検索か手入力で。1日の目標に対して、いまどれだけ摂れたかを確認できます。
               </p>
-              <div className="flex flex-wrap items-start gap-3">
-                <StartGuestButton />
-                <Suspense>
-                  <AccountLinks />
-                </Suspense>
-              </div>
-              <p className="text-xs text-[var(--ink-soft)]">
-                登録は不要です。6 日分のサンプル記録が入った状態で始まり、データは 14 日後に自動で削除されます。
-              </p>
+              <HeroActions />
             </div>
 
             <div className="relative mx-2 md:mx-6">
