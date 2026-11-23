@@ -131,13 +131,22 @@ async function main() {
   // 同義語: name_contains を含む食品に別名を付ける
   const aliasesByFood = new Map<string, string[]>();
   for (const f of foods) {
+    const xs: string[] = [];
     for (const [alias, contains] of aliasRules) {
-      if (f.nameRaw.includes(contains)) {
-        const xs = aliasesByFood.get(f.foodNo) ?? [];
-        xs.push(alias);
-        aliasesByFood.set(f.foodNo, xs);
-      }
+      if (f.nameRaw.includes(contains)) xs.push(alias);
     }
+    // 成分表の備考にある別名(例: 「別名： キャノーラ油、カノーラ油」)
+    const other = /別名[：:]\s*([^\n]+)/.exec(f.note)?.[1];
+    if (other)
+      xs.push(
+        ...other
+          .split(/[、,]/)
+          .map((x) => x.trim())
+          .filter(Boolean),
+      );
+    // 「サラダ油」は成分表の食品名ではなく、試料が「精製油及びサラダ油」の油(調合油・なたね油・大豆油)
+    if (f.groupCode === "14" && f.note.includes("サラダ油")) xs.push("サラダ油");
+    if (xs.length) aliasesByFood.set(f.foodNo, xs);
   }
 
   const foodRows = foods.map((f) => {

@@ -120,6 +120,32 @@ describe("② 調理後データがない場合は生の成分値 + 吸油量(�
   });
 });
 
+describe("汁ごと食べる(味噌汁・スープ)", () => {
+  it("調理後データがあっても使わず、調理前の成分値で計算する(溶け出た成分も摂るため)", () => {
+    const r = calcRecipe(
+      [
+        {
+          role: "ingredient",
+          food: spinachRaw,
+          amount: 100,
+          unit: "g",
+          weightBasis: "raw",
+          method: "soup",
+          // 呼び出し側が誤って調理後データを渡しても使わない
+          variant: { cookedFood: spinachBoiled, weightChangeRate: 70, includesOil: false },
+        },
+      ],
+      opts,
+    );
+    // 生 18 kcal/100 g × 100 g(ゆでの 16.1 kcal ではない)
+    expect(r.total.ENERC_KCAL).toBeCloseTo(18);
+    // カリウムも生の値のまま(ゆで汁に溶け出た分を失わない)
+    expect(r.total.K).toBeCloseTo(spinachRaw.nutrients.K!);
+    expect(r.lines[0].path).toBe("soup");
+    expect(r.lines[0].notes.join()).toContain("汁ごと");
+  });
+});
+
 describe("③ 調味料と 1 人前", () => {
   it("調味料は使用量をそのまま加算し、人数で割る", () => {
     const r = calcRecipe(

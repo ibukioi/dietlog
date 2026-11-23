@@ -10,4 +10,5 @@ export async function deleteRecipeAction(id: string) {
   const user = await requireUser();
   await deleteRecipe(user.id, z.string().uuid().parse(id));
   revalidatePath("/recipes");
+  revalidatePath("/log");
 }

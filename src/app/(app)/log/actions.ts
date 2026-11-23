@@ -8,7 +8,7 @@ import { PRIMARY_CODES } from "@/domain/nutrients/catalog";
 import type { NutrientMap } from "@/domain/nutrients/types";
 import { MEAL_TYPES } from "@/lib/dates";
 import { requireUser } from "@/server/auth/session";
-import { addMealItem } from "@/server/repositories/meals";
+import { addMealItem, getMealItem, updateMealItem } from "@/server/repositories/meals";
 import { getFood, getFoods } from "@/server/repositories/mext";
 import { getMyProduct, saveMyProduct, touchMyProduct } from "@/server/repositories/products";
 import { getRecipe, saveRecipe, touchRecipe } from "@/server/repositories/recipes";
@@ -137,6 +137,11 @@ export async function previewHomeCooked(input: z.infer<typeof homeCookedSchema>)
   return calculateHomeCooked(v.ingredients as IngredientSpec[], v.servings);
 }
 
+/** 記録に残す計算の内訳。specs と servings があれば、あとで自炊フォームに読み込んで編集できる */
+function traceOf(result: Awaited<ReturnType<typeof calculateHomeCooked>>) {
+  return { lines: result.lines, oil: result.oil, notes: result.notes };
+}
+
 const logHomeCookedSchema = where.extend({
   recipeId: z.string().uuid().optional(),
   name: z.string().trim().min(1).max(60),
@@ -174,9 +179,9 @@ export async function logHomeCooked(input: z.infer<typeof logHomeCookedSchema>) 
     date: v.date,
     mealType: v.mealType,
     ...recipeItem({ id: recipeId ?? "", name: v.name }, result.perServing, v.eatenServings, {
-      lines: result.lines,
-      oil: result.oil,
-      notes: result.notes,
+      ...traceOf(result),
+      specs: v.ingredients,
+      servings: v.servings,
     }),
     recipeId,
   });
@@ -191,22 +196,20 @@ export async function logRecipe(input: z.infer<typeof logRecipeSchema>) {
   const v = logRecipeSchema.parse(input);
   const r = await getRecipe(user.id, v.recipeId);
   if (!r) throw new Error("タグが見つかりません");
-  const result = await calculateHomeCooked(
-    r.ingredients.map((i) => ({
-      role: i.role,
-      foodNo: i.foodNo,
-      amount: i.amount,
-      unit: i.unit,
-      weightBasis: i.weightBasis,
-      method: i.cookingMethodCode as never,
-      consumeAll: i.consumeAll,
-    })),
-    r.servings,
-  );
+  const specs: IngredientSpec[] = r.ingredients.map((i) => ({
+    role: i.role,
+    foodNo: i.foodNo,
+    amount: i.amount,
+    unit: i.unit,
+    weightBasis: i.weightBasis,
+    method: i.cookingMethodCode as IngredientSpec["method"],
+    consumeAll: i.consumeAll,
+  }));
+  const result = await calculateHomeCooked(specs, r.servings);
   await addMealItem(user.id, {
     date: v.date,
     mealType: v.mealType,
-    ...recipeItem(r, result.perServing, v.eatenServings, { lines: result.lines, oil: result.oil, notes: result.notes }),
+    ...recipeItem(r, result.perServing, v.eatenServings, { ...traceOf(result), specs, servings: r.servings }),
   });
   await touchRecipe(user.id, r.id);
   return done();
@@ -233,4 +236,120 @@ export async function getRecipeForEdit(recipeId: string) {
       consumeAll: i.consumeAll,
     })),
   };
+}
+
+type TraceWithSpecs = { specs?: IngredientSpec[]; servings?: number };
+
+/** 自炊の記録を自炊フォームに読み込む(材料・分量から編集するため) */
+export async function getMealItemForCookEdit(itemId: string) {
+  const user = await requireUser();
+  const item = await getMealItem(user.id, z.string().uuid().parse(itemId));
+  if (!item || item.kind !== "home_cooked") return null;
+  const trace = (item.calcTraceJson ?? {}) as TraceWithSpecs;
+  let specs = trace.specs ?? null;
+  let servings = trace.servings ?? null;
+  // 古い記録(材料を残していない)は、元のタグから材料を読み込む
+  if (!specs && item.recipeId) {
+    const r = await getRecipe(user.id, item.recipeId);
+    if (r) {
+      specs = r.ingredients.map((i) => ({
+        role: i.role,
+        foodNo: i.foodNo,
+        amount: i.amount,
+        unit: i.unit,
+        weightBasis: i.weightBasis,
+        method: i.cookingMethodCode as IngredientSpec["method"],
+        consumeAll: i.consumeAll,
+      }));
+      servings = r.servings;
+    }
+  }
+  if (!specs || !servings) return null;
+  const foods = await getFoods(specs.map((i) => i.foodNo));
+  return {
+    itemId: item.id,
+    recipeId: item.recipeId,
+    name: item.nameSnapshot,
+    date: item.eatenOn,
+    mealType: item.mealType,
+    servings,
+    eatenServings: item.quantity,
+    ingredients: specs.map((i) => ({ ...i, name: foods.get(i.foodNo)?.name ?? i.foodNo })),
+  };
+}
+
+const updateHomeCookedSchema = logHomeCookedSchema.extend({ itemId: z.string().uuid() });
+
+/** 自炊の記録を、材料・分量から計算し直して上書きする */
+export async function updateHomeCooked(input: z.infer<typeof updateHomeCookedSchema>) {
+  const user = await requireUser();
+  const v = updateHomeCookedSchema.parse(input);
+  const specs = v.ingredients as IngredientSpec[];
+  const result = await calculateHomeCooked(specs, v.servings);
+  if (v.saveAsTag) {
+    await saveRecipe(
+      user.id,
+      { name: v.name, servings: v.servings },
+      specs.map((i) => ({
+        role: i.role,
+        foodNo: i.foodNo,
+        amount: i.amount,
+        unit: i.unit,
+        grams: i.amount,
+        weightBasis: i.weightBasis,
+        cookingMethodCode: i.method,
+        consumeAll: i.consumeAll ?? false,
+      })),
+      v.recipeId,
+    );
+    revalidatePath("/recipes");
+  }
+  const body = recipeItem({ id: v.recipeId ?? "", name: v.name }, result.perServing, v.eatenServings, {
+    ...traceOf(result),
+    specs,
+    servings: v.servings,
+  });
+  const ok = await updateMealItem(user.id, v.itemId, {
+    name: v.name,
+    date: v.date,
+    mealType: v.mealType,
+    quantity: v.eatenServings,
+    nutrients: body.nutrients,
+    calcTrace: body.calcTrace,
+  });
+  if (!ok) throw new Error("記録が見つかりません");
+  revalidatePath("/analysis");
+  return done();
+}
+
+// --- タグの編集(記録はしない) -------------------------------------------------
+const updateRecipeSchema = z.object({
+  recipeId: z.string().uuid(),
+  name: logHomeCookedSchema.shape.name,
+  ingredients: homeCookedSchema.shape.ingredients,
+  servings: homeCookedSchema.shape.servings,
+});
+
+/** タグの名前・人数・材料を上書きする。記録済みの食事は変えない */
+export async function updateRecipeAction(input: z.infer<typeof updateRecipeSchema>) {
+  const user = await requireUser();
+  const v = updateRecipeSchema.parse(input);
+  await saveRecipe(
+    user.id,
+    { name: v.name, servings: v.servings },
+    v.ingredients.map((i) => ({
+      role: i.role,
+      foodNo: i.foodNo,
+      amount: i.amount,
+      unit: i.unit,
+      grams: i.amount,
+      weightBasis: i.weightBasis,
+      cookingMethodCode: i.method,
+      consumeAll: i.consumeAll ?? false,
+    })),
+    v.recipeId,
+  );
+  revalidatePath("/recipes");
+  revalidatePath("/log");
+  return { ok: true as const };
 }

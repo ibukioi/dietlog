@@ -49,7 +49,13 @@ export default async function RecipesPage() {
                   href={`/log?tab=cook&recipe=${r.id}`}
                   className={buttonVariants({ size: "sm", variant: "outline" })}
                 >
-                  分量を変えて記録・編集
+                  分量を変えて記録
+                </Link>
+                <Link
+                  href={`/log?editTag=${r.id}&from=recipes`}
+                  className={buttonVariants({ size: "sm", variant: "outline" })}
+                >
+                  編集
                 </Link>
                 <DeleteRecipeButton id={r.id} name={r.name} />
               </div>

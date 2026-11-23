@@ -81,7 +81,7 @@ export async function seedGuest(userId: string, now = new Date()) {
       id,
       name: r.name,
       perServing: result.perServing,
-      trace: { lines: result.lines, oil: result.oil, notes: result.notes },
+      trace: { lines: result.lines, oil: result.oil, notes: result.notes, specs, servings: r.servings },
     });
   }
 

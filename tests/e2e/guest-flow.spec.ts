@@ -52,3 +52,30 @@ test("料理・惣菜を目安値で記録できる", async ({ page }) => {
   await expect(page).toHaveURL(/\/home/);
   await expect(page.getByText(/肉じゃが/).first()).toBeVisible();
 });
+
+test("記録を編集できる(量を変えると栄養値も増減する)", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "登録せずに試す" }).click();
+  await expect(page).toHaveURL(/\/home/, { timeout: 30_000 });
+
+  // サンプルの朝食「豆腐とわかめの味噌汁」(1 人前)を 2 人前に
+  const row = page.getByRole("listitem").filter({ hasText: "豆腐とわかめの味噌汁" });
+  const kcalBefore = Number((await row.getByText(/kcal$/).first().textContent())!.replace(/[^\d.]/g, ""));
+  await page.getByRole("button", { name: "豆腐とわかめの味噌汁を編集" }).click();
+  const dialog = page.getByRole("dialog");
+  await dialog.getByLabel("量(人前)").fill("2");
+  await dialog.getByLabel("名前").fill("豆腐とわかめの味噌汁(おかわり)");
+  await dialog.getByRole("button", { name: "変更を保存" }).click();
+
+  const edited = page.getByRole("listitem").filter({ hasText: "豆腐とわかめの味噌汁(おかわり)" });
+  await expect(edited).toBeVisible();
+  await expect
+    .poll(async () => Number((await edited.getByText(/kcal$/).first().textContent())!.replace(/[^\d.]/g, "")))
+    .toBeCloseTo(kcalBefore * 2, -1);
+
+  // 自炊の記録は材料から編集できる
+  await page.getByRole("button", { name: "豆腐とわかめの味噌汁(おかわり)を編集" }).click();
+  await page.getByRole("link", { name: "材料・分量から編集する" }).click();
+  await expect(page.getByText(/を編集しています/)).toBeVisible();
+  await expect(page.getByRole("button", { name: /木綿豆腐を外す/ })).toBeVisible();
+});

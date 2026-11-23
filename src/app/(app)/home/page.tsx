@@ -61,7 +61,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
           <Fish className="pointer-events-none absolute -right-3 -bottom-2 w-24 rotate-[-8deg] opacity-90" />
           <div className="flex items-baseline justify-between">
             <h2 id="status-title" className="text-sm font-medium text-[var(--brand-deep)]">
-              {date === today ? "きょうの摂取量" : "この日の摂取量"}
+              {date === today ? "今日の摂取量" : "この日の摂取量"}
             </h2>
             <Link href="/settings/goals" className="text-xs text-muted-foreground underline underline-offset-2">
               目標を変える
@@ -125,16 +125,27 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
               key={m}
               date={date}
               mealType={m}
-              items={day.byMeal.get(m)!.map((i) => ({
-                id: i.id,
-                name: i.nameSnapshot,
-                quantity: i.quantity,
-                unit: i.unit,
-                energyKcal: i.energyKcal,
-                proteinG: i.proteinG,
-                sourceLabel: i.sourceLabel,
-                isEstimate: i.isEstimate,
-              }))}
+              today={today}
+              items={day.byMeal.get(m)!.map((i) => {
+                const trace = (i.calcTraceJson ?? {}) as { specs?: unknown[] };
+                return {
+                  id: i.id,
+                  name: i.nameSnapshot,
+                  quantity: i.quantity,
+                  unit: i.unit,
+                  date: i.eatenOn,
+                  mealType: i.mealType,
+                  kind: i.kind,
+                  cookEditable: i.kind === "home_cooked" && (Array.isArray(trace.specs) || Boolean(i.recipeId)),
+                  energyKcal: i.energyKcal,
+                  proteinG: i.proteinG,
+                  fatG: i.fatG,
+                  carbG: i.carbG,
+                  saltG: i.saltG,
+                  sourceLabel: i.sourceLabel,
+                  isEstimate: i.isEstimate,
+                };
+              })}
             />
           ))}
           <div className="flex justify-end">

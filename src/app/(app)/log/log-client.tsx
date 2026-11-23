@@ -41,6 +41,10 @@ export function LogClient(props: {
   initialMeal: MealType;
   initialTab: string;
   editRecipeId: string | null;
+  editItemId: string | null;
+  /** タグ(レシピ)だけを編集する(記録はしない) */
+  editTagId: string | null;
+  tagReturnTo: string | null;
   uploadsEnabled: boolean;
   products: ProductSummary[];
   recipes: RecipeSummary[];
@@ -108,7 +112,17 @@ export function LogClient(props: {
           <DishTab where={where} onLogged={afterLog} goTab={setTab} />
         </TabsContent>
         <TabsContent value="cook" className="pt-2">
-          <HomeCookedTab where={where} recipes={props.recipes} editRecipeId={props.editRecipeId} onLogged={afterLog} />
+          <HomeCookedTab
+            where={where}
+            recipes={props.recipes}
+            editRecipeId={props.editRecipeId}
+            editItemId={props.editItemId}
+            editTagId={props.editTagId}
+            onLogged={afterLog}
+            onTagDone={() =>
+              router.push(props.tagReturnTo ?? `/log?tab=quick&date=${where.date}&meal=${where.mealType}`)
+            }
+          />
         </TabsContent>
         <TabsContent value="manual" className="pt-2">
           <ManualTab where={where} uploadsEnabled={props.uploadsEnabled} onLogged={afterLog} />

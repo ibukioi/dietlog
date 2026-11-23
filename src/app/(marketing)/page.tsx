@@ -106,7 +106,7 @@ export default function LandingPage() {
                 aria-label="ホーム画面の表示例"
               >
                 <div className="flex items-baseline justify-between">
-                  <span className="text-sm font-medium text-[var(--brand-deep)]">きょうの摂取量</span>
+                  <span className="text-sm font-medium text-[var(--brand-deep)]">今日の摂取量</span>
                   <span className="text-xs text-muted-foreground">表示例</span>
                 </div>
                 <HpGauge gauge={energy} variant="hero" />

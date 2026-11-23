@@ -61,7 +61,7 @@ export interface CalcOptions {
   defaultOil: FoodData;
 }
 
-export type IngredientPath = "raw" | "cooked_data" | "fallback";
+export type IngredientPath = "raw" | "soup" | "cooked_data" | "fallback";
 
 export interface IngredientTrace {
   role: IngredientInput["role"];
@@ -192,7 +192,9 @@ export function calcRecipe(inputs: IngredientInput[], opts: CalcOptions): Recipe
     const lineNotes: string[] = [];
     if (densityAssumed && ing.unit !== "g") lineNotes.push("密度の記載がないため 1 mL = 1 g で換算");
 
-    const isRaw = ing.method === "raw" || ing.role === "seasoning";
+    // 汁ごと食べる料理は、溶け出た成分も摂るので調理前の成分値をそのまま使う
+    const isSoup = ing.method === "soup" && ing.role === "ingredient";
+    const isRaw = ing.method === "raw" || ing.role === "seasoning" || isSoup;
     const variant = isRaw ? null : (ing.variant ?? null);
     const coef = isRaw ? null : (ing.coefficient ?? null);
     const wcr = variant?.weightChangeRate ?? coef?.weightChangeRate ?? 100;
@@ -207,7 +209,13 @@ export function calcRecipe(inputs: IngredientInput[], opts: CalcOptions): Recipe
     let capacity = 0;
     let cookedG = wRaw;
 
-    if (isRaw) {
+    if (isSoup) {
+      path = "soup";
+      nutrients = per100(ing.food.nutrients, wRaw);
+      lineNotes.push(
+        "汁に溶け出た成分も汁ごと食べるため、調理前の成分値で計算(成分表の「ゆで」「水煮」は汁を捨てた値)",
+      );
+    } else if (isRaw) {
       path = "raw";
       nutrients = per100(ing.food.nutrients, wRaw);
     } else if (variant) {
@@ -252,7 +260,7 @@ export function calcRecipe(inputs: IngredientInput[], opts: CalcOptions): Recipe
       inputGrams: grams,
       rawGrams: wRaw,
       cookedGrams: cookedG,
-      weightChangeRate: path === "raw" ? null : wcr,
+      weightChangeRate: path === "raw" || path === "soup" ? null : wcr,
       oilCapacityG: capacity,
       notes: lineNotes,
       nutrients: roundMap(nutrients),

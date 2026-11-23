@@ -9,15 +9,10 @@ import { deleteMealItemAction } from "@/app/(app)/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MEAL_TYPE_LABEL, type MealType } from "@/lib/dates";
+import { EditMealItemButton, type EditableItem } from "@/components/edit-meal-item";
 import { MealIcon } from "@/components/food-illustrations";
 
-export interface MealListItem {
-  id: string;
-  name: string;
-  quantity: number;
-  unit: string;
-  energyKcal: number | null;
-  proteinG: number | null;
+export interface MealListItem extends EditableItem {
   sourceLabel: string | null;
   isEstimate: boolean;
 }
@@ -26,7 +21,7 @@ function fmt(n: number | null, digits = 0) {
   return n === null ? "—" : n.toLocaleString("ja-JP", { maximumFractionDigits: digits });
 }
 
-function ItemRow({ item, editable }: { item: MealListItem; editable: boolean }) {
+function ItemRow({ item, editable, today }: { item: MealListItem; editable: boolean; today: string }) {
   const [pending, start] = useTransition();
   return (
     <li className="flex items-start justify-between gap-3 py-2">
@@ -48,11 +43,12 @@ function ItemRow({ item, editable }: { item: MealListItem; editable: boolean }) 
           )}
         </p>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 items-center gap-1">
         <div className="text-right">
           <p className="font-num tabular-nums">{fmt(item.energyKcal)} kcal</p>
           <p className="text-xs text-muted-foreground tabular-nums">P {fmt(item.proteinG, 1)} g</p>
         </div>
+        {editable && <EditMealItemButton item={item} today={today} />}
         {editable && (
           <Button
             variant="ghost"
@@ -79,11 +75,13 @@ export function MealSection({
   mealType,
   items,
   editable = true,
+  today,
 }: {
   date: string;
   mealType: MealType;
   items: MealListItem[];
   editable?: boolean;
+  today: string;
 }) {
   const kcal = items.reduce((s, i) => s + (i.energyKcal ?? 0), 0);
   return (
@@ -111,7 +109,7 @@ export function MealSection({
       ) : (
         <ul className="divide-y divide-border">
           {items.map((i) => (
-            <ItemRow key={i.id} item={i} editable={editable} />
+            <ItemRow key={i.id} item={i} editable={editable} today={today} />
           ))}
         </ul>
       )}

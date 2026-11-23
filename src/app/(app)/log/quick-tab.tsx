@@ -1,10 +1,12 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
+import { Minus, Pencil, Plus } from "lucide-react";
+import Link from "next/link";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 import { logMyProduct, logRecipe } from "./actions";
 import type { ProductSummary, RecipeSummary, Where } from "./log-client";
@@ -44,6 +46,19 @@ function Stepper({
         <Plus />
       </Button>
     </div>
+  );
+}
+
+/** 見出し横の「編集」: 一覧の管理画面(名前・中身の編集、削除)へ */
+function EditLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-[var(--brand)]")}
+    >
+      <Pencil /> 編集
+    </Link>
   );
 }
 
@@ -139,7 +154,10 @@ export function QuickTab({
   return (
     <div className="grid gap-6">
       <section className="grid gap-1">
-        <h2 className="font-bold">自炊のタグ</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-bold">自炊のタグ</h2>
+          {recipes.length > 0 && <EditLink href="/recipes" label="自炊のタグを編集" />}
+        </div>
         {recipes.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             自炊で作った料理を「タグとして保存」すると、ここからワンタップで記録できます。
@@ -156,7 +174,10 @@ export function QuickTab({
         )}
       </section>
       <section className="grid gap-1">
-        <h2 className="font-bold">自分の商品</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-bold">自分の商品</h2>
+          {products.length > 0 && <EditLink href="/products" label="自分の商品を編集" />}
+        </div>
         {products.length === 0 ? (
           <p className="text-sm text-muted-foreground">市販品を検索したり手入力したりすると、ここに保存されます。</p>
         ) : (

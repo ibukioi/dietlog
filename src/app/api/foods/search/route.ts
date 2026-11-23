@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   if (!(await getCurrentUser())) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   const q = req.nextUrl.searchParams.get("q")?.slice(0, 50) ?? "";
   const modeParam = req.nextUrl.searchParams.get("mode");
-  const mode = modeParam === "dish" || modeParam === "seasoning" ? modeParam : "ingredient";
+  const mode = modeParam === "dish" || modeParam === "seasoning" || modeParam === "oil" ? modeParam : "ingredient";
   const hits = await searchMextFoods(q, { mode, limit: 30 });
   return NextResponse.json({ hits });
 }

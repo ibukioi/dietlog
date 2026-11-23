@@ -18,6 +18,7 @@ type Mods = {
   s: typeof import("@/server/db/schema");
   meals: typeof import("@/server/repositories/meals");
   products: typeof import("@/server/repositories/products");
+  recipes: typeof import("@/server/repositories/recipes");
   account: typeof import("@/server/repositories/account");
   guest: typeof import("@/server/services/guest");
   cleanup: typeof import("@/server/services/cleanup");
@@ -50,6 +51,7 @@ beforeAll(async () => {
     s: await import("@/server/db/schema"),
     meals: await import("@/server/repositories/meals"),
     products: await import("@/server/repositories/products"),
+    recipes: await import("@/server/repositories/recipes"),
     account: await import("@/server/repositories/account"),
     guest: await import("@/server/services/guest"),
     cleanup: await import("@/server/services/cleanup"),
@@ -106,6 +108,65 @@ describe("ユーザー間のデータ分離", () => {
       ),
     ).rejects.toThrow();
     expect((await m.products.getMyProduct("alice", id))?.name).toBe("alice の商品");
+  });
+});
+
+describe("記録の編集", () => {
+  it("他人の記録は編集できない", async () => {
+    const [a] = await m.meals.listItemsInRange("alice", "2026-11-20", "2026-11-20");
+    expect(await m.meals.updateMealItem("bob", a.id, { name: "乗っ取り" })).toBe(false);
+    expect((await m.meals.getMealItem("alice", a.id))?.nameSnapshot).toBe("alice のランチ");
+  });
+
+  it("日付・食事区分を変えると、その日の別の食事に移る", async () => {
+    const [a] = await m.meals.listItemsInRange("alice", "2026-11-20", "2026-11-20");
+    expect(
+      await m.meals.updateMealItem("alice", a.id, {
+        date: "2026-11-19",
+        mealType: "dinner",
+        name: "alice の夕食",
+        nutrients: { ENERC_KCAL: 750, "PROT-": 30 },
+      }),
+    ).toBe(true);
+    const moved = await m.meals.getMealItem("alice", a.id);
+    expect(moved).toMatchObject({
+      eatenOn: "2026-11-19",
+      mealType: "dinner",
+      nameSnapshot: "alice の夕食",
+      energyKcal: 750,
+    });
+    // 元に戻す(後続のテストのため)
+    await m.meals.updateMealItem("alice", a.id, { date: "2026-11-20", mealType: "lunch" });
+  });
+});
+
+describe("タグの編集", () => {
+  const ing = (amount: number) => ({
+    role: "ingredient" as const,
+    foodNo: "06267",
+    amount,
+    unit: "g" as const,
+    grams: amount,
+    weightBasis: "raw" as const,
+    cookingMethodCode: "boil",
+    consumeAll: false,
+  });
+
+  it("名前・人数・材料を上書きできる", async () => {
+    const id = await m.recipes.saveRecipe("alice", { name: "おひたし", servings: 1 }, [ing(100)]);
+    await m.recipes.saveRecipe("alice", { name: "ほうれんそうのおひたし", servings: 2 }, [ing(200), ing(50)], id);
+    const r = await m.recipes.getRecipe("alice", id);
+    expect(r).toMatchObject({ name: "ほうれんそうのおひたし", servings: 2 });
+    expect(r!.ingredients.map((i) => i.amount)).toEqual([200, 50]);
+  });
+
+  it("他人のタグは編集・削除できない", async () => {
+    const id = await m.recipes.saveRecipe("alice", { name: "卵焼き", servings: 1 }, [ing(100)]);
+    await expect(m.recipes.saveRecipe("bob", { name: "乗っ取り", servings: 1 }, [], id)).rejects.toThrow();
+    expect(await m.recipes.deleteRecipe("bob", id)).toBe(false);
+    const r = await m.recipes.getRecipe("alice", id);
+    expect(r).toMatchObject({ name: "卵焼き" });
+    expect(r!.ingredients).toHaveLength(1);
   });
 });
 

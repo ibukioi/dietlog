@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { Tags, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -13,7 +13,16 @@ import { Input } from "@/components/ui/input";
 import type { RecipeResult } from "@/domain/calc/home-cooked";
 import { COOKING_METHODS, type CookingMethodCode } from "@/domain/mext/cooking";
 
-import { getRecipeForEdit, logHomeCooked, previewHomeCooked } from "./actions";
+import { deleteRecipeAction } from "../recipes/actions";
+
+import {
+  getMealItemForCookEdit,
+  getRecipeForEdit,
+  logHomeCooked,
+  previewHomeCooked,
+  updateHomeCooked,
+  updateRecipeAction,
+} from "./actions";
 import type { RecipeSummary, Where } from "./log-client";
 
 type Role = "ingredient" | "oil" | "seasoning";
@@ -36,7 +45,7 @@ interface Row {
 
 const UNIT_LABEL: Record<Unit, string> = { g: "g", ml: "mL", tbsp: "大さじ", tsp: "小さじ" };
 const BASIS_LABEL: Record<Basis, string> = { raw: "生の可食部", purchased: "皮・骨など込み", cooked: "調理後に量った" };
-const PATH_LABEL = { raw: "生のまま", cooked_data: "調理後データ", fallback: "補正で計算" } as const;
+const PATH_LABEL = { raw: "生のまま", soup: "汁ごと", cooked_data: "調理後データ", fallback: "補正で計算" } as const;
 
 type Spec = {
   role: Role;
@@ -47,6 +56,15 @@ type Spec = {
   method: CookingMethodCode;
   consumeAll: boolean;
 };
+
+/** 油の欄のショートカット(食品番号は成分表 14 群) */
+const COMMON_OILS = [
+  { foodNo: "14006", label: "サラダ油(調合油)", name: "調合油" },
+  { foodNo: "14002", label: "ごま油", name: "ごま油" },
+  { foodNo: "14001", label: "オリーブ油", name: "オリーブ油" },
+  { foodNo: "14008", label: "なたね油", name: "なたね油" },
+  { foodNo: "14017", label: "バター(有塩)", name: "無発酵バター 有塩バター" },
+] as const;
 
 const newKey = () => Math.random().toString(36).slice(2);
 
@@ -65,14 +83,25 @@ export function HomeCookedTab({
   where,
   recipes,
   editRecipeId,
+  editItemId,
+  editTagId,
   onLogged,
+  onTagDone,
 }: {
   where: Where;
   recipes: RecipeSummary[];
   editRecipeId: string | null;
+  /** 記録済みの自炊を材料・分量から編集する(上書き保存) */
+  editItemId: string | null;
+  /** タグだけを編集する(保存しても食事は記録しない) */
+  editTagId: string | null;
   onLogged: () => void;
+  /** タグの保存・削除のあと */
+  onTagDone: () => void;
 }) {
   const [recipeId, setRecipeId] = useState<string | null>(null);
+  const [editingItemId, setEditingItemId] = useState<string | null>(null);
+  const [editingTagId, setEditingTagId] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [servings, setServings] = useState("1");
   const [eaten, setEaten] = useState("1");
@@ -86,9 +115,67 @@ export function HomeCookedTab({
   const [pending, start] = useTransition();
   const loadedRef = useRef(false);
 
-  async function loadRecipe(id: string) {
-    const r = await getRecipeForEdit(id);
+  /** 「新しい料理」を選んだら、読み込んだタグの内容を消して新規作成に戻す */
+  function resetForm() {
+    setRecipeId(null);
+    setEditingItemId(null);
+    setEditingTagId(null);
+    setName("");
+    setServings("1");
+    setEaten("1");
+    setRows([]);
+    setSaveAsTag(false);
+  }
+
+  async function toRows(
+    ingredients: Array<{
+      role: Role;
+      foodNo: string;
+      name: string;
+      amount: number;
+      unit: Unit;
+      weightBasis: Basis;
+      method: string;
+      consumeAll?: boolean;
+    }>,
+  ): Promise<Row[]> {
+    return Promise.all(
+      ingredients.map(async (i) => ({
+        key: newKey(),
+        role: i.role,
+        foodNo: i.foodNo,
+        name: i.name,
+        amount: String(i.amount),
+        unit: i.unit,
+        weightBasis: i.weightBasis,
+        method: i.method as CookingMethodCode,
+        consumeAll: Boolean(i.consumeAll),
+        cookedMethods: i.role === "ingredient" ? await fetchMethods(i.foodNo) : [],
+      })),
+    );
+  }
+
+  async function applyItem(it: Awaited<ReturnType<typeof getMealItemForCookEdit>>) {
+    if (!it) {
+      toast.error("この記録は材料から編集できません");
+      return;
+    }
+    setEditingItemId(it.itemId);
+    setRecipeId(it.recipeId);
+    setName(it.name);
+    setServings(String(it.servings));
+    setEaten(String(it.eatenServings));
+    setSaveAsTag(false);
+    setRows(await toRows(it.ingredients));
+  }
+
+  function loadRecipe(id: string) {
+    return getRecipeForEdit(id).then(applyRecipe);
+  }
+
+  async function applyRecipe(r: Awaited<ReturnType<typeof getRecipeForEdit>>) {
     if (!r) return;
+    setEditingItemId(null);
     setRecipeId(r.id);
     setName(r.name);
     setServings(String(r.servings));
@@ -112,11 +199,27 @@ export function HomeCookedTab({
   }
 
   useEffect(() => {
-    if (editRecipeId && !loadedRef.current) {
+    if (loadedRef.current) return;
+    if (editTagId) {
       loadedRef.current = true;
-      void loadRecipe(editRecipeId);
+      void getRecipeForEdit(editTagId).then(async (r) => {
+        if (!r) {
+          toast.error("タグが見つかりません");
+          return;
+        }
+        await applyRecipe(r);
+        setEditingTagId(r.id);
+      });
+    } else if (editItemId) {
+      loadedRef.current = true;
+      // 取得後のコールバックで state を更新する(effect 内で同期的に setState しない)
+      void getMealItemForCookEdit(editItemId).then(applyItem);
+    } else if (editRecipeId) {
+      loadedRef.current = true;
+      void getRecipeForEdit(editRecipeId).then(applyRecipe);
     }
-  }, [editRecipeId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editRecipeId, editItemId, editTagId]);
 
   async function addFood(role: Role, h: FoodHit) {
     const row: Row = {
@@ -186,18 +289,41 @@ export function HomeCookedTab({
     if (!name.trim()) return toast.error("料理名を入力してください");
     if (!specs.some((s) => s.role === "ingredient" || s.role === "seasoning"))
       return toast.error("食材を追加してください");
+    const body = {
+      ...where,
+      recipeId: recipeId ?? undefined,
+      name: name.trim(),
+      ingredients: specs,
+      servings: servingsN,
+      eatenServings: eatenN,
+      saveAsTag,
+    };
     start(async () => {
-      await logHomeCooked({
-        ...where,
-        recipeId: recipeId ?? undefined,
-        name: name.trim(),
-        ingredients: specs,
-        servings: servingsN,
-        eatenServings: eatenN,
-        saveAsTag,
-      });
-      toast.success(saveAsTag ? `${name}を記録し、タグに保存しました` : `${name}を記録しました`);
+      if (editingTagId) {
+        await updateRecipeAction({ recipeId: editingTagId, name: body.name, ingredients: specs, servings: servingsN });
+        toast.success(`タグ「${body.name}」を保存しました`);
+        onTagDone();
+        return;
+      }
+      if (editingItemId) {
+        await updateHomeCooked({ ...body, itemId: editingItemId });
+        toast.success(`${name}を更新しました`);
+      } else {
+        await logHomeCooked(body);
+        toast.success(saveAsTag ? `${name}を記録し、タグに保存しました` : `${name}を記録しました`);
+      }
       onLogged();
+    });
+  }
+
+  function removeTag() {
+    if (!editingTagId) return;
+    if (!confirm(`タグ「${name}」を削除しますか?(記録済みの食事は残ります)`)) return;
+    const id = editingTagId;
+    start(async () => {
+      await deleteRecipeAction(id);
+      toast.success(`タグ「${name}」を削除しました`);
+      onTagDone();
     });
   }
 
@@ -208,12 +334,36 @@ export function HomeCookedTab({
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
       <div className="grid content-start gap-5">
-        {recipes.length > 0 && (
+        {editingItemId && (
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-[var(--brand-soft)] px-4 py-3 text-sm">
+            <span>記録済みの「{name}」を編集しています。保存すると、この記録を計算し直して上書きします。</span>
+            <Button variant="ghost" size="sm" onClick={resetForm}>
+              新しく記録する
+            </Button>
+          </div>
+        )}
+        {editingTagId && (
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-[var(--brand-soft)] px-4 py-3 text-sm">
+            <span className="flex items-center gap-2">
+              <Tags className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
+              タグ「{name}」を編集しています。保存しても食事は記録されません。
+            </span>
+            <span className="flex gap-1">
+              <Button variant="ghost" size="sm" onClick={onTagDone}>
+                やめる
+              </Button>
+              <Button variant="ghost" size="sm" className="text-destructive" disabled={pending} onClick={removeTag}>
+                タグを削除
+              </Button>
+            </span>
+          </div>
+        )}
+        {recipes.length > 0 && !editingItemId && !editingTagId && (
           <Field label="保存したタグから読み込む" htmlFor="load-tag">
             <NativeSelect
               id="load-tag"
               value={recipeId ?? ""}
-              onChange={(e) => e.target.value && loadRecipe(e.target.value)}
+              onChange={(e) => (e.target.value ? loadRecipe(e.target.value) : resetForm())}
             >
               <option value="">新しい料理</option>
               {recipes.map((r) => (
@@ -242,9 +392,11 @@ export function HomeCookedTab({
               onChange={(e) => setServings(e.target.value)}
             />
           </Field>
-          <Field label="食べた量(人前)" htmlFor="cook-eaten">
-            <Input id="cook-eaten" inputMode="decimal" value={eaten} onChange={(e) => setEaten(e.target.value)} />
-          </Field>
+          {!editingTagId && (
+            <Field label="食べた量(人前)" htmlFor="cook-eaten">
+              <Input id="cook-eaten" inputMode="decimal" value={eaten} onChange={(e) => setEaten(e.target.value)} />
+            </Field>
+          )}
         </div>
 
         <section className="grid gap-2" aria-labelledby="ing-title">
@@ -330,12 +482,38 @@ export function HomeCookedTab({
               withConsumeAll
             />
           ))}
+          <div className="flex flex-wrap gap-1.5" role="group" aria-label="よく使う油">
+            {COMMON_OILS.map((o) => (
+              <Button
+                key={o.foodNo}
+                type="button"
+                size="sm"
+                variant="outline"
+                className="rounded-full"
+                onClick={() =>
+                  addFood("oil", {
+                    foodNo: o.foodNo,
+                    nameDisplay: o.name,
+                    groupCode: "14",
+                    isCooked: false,
+                    isDish: false,
+                    energyKcal: null,
+                  })
+                }
+              >
+                + {o.label}
+              </Button>
+            ))}
+          </div>
           <FoodSearch
-            mode="seasoning"
+            mode="oil"
             label="油を追加"
-            placeholder="油を追加(例: サラダ油、ごま油、オリーブ油)"
+            placeholder="ほかの油を探す(例: なたね油、米油、バター)"
             onPick={(h) => addFood("oil", h)}
           />
+          <p className="text-xs text-muted-foreground">
+            成分表に「サラダ油」という食品はありません。一般的なサラダ油は「調合油」(なたね油と大豆油を1:1)で計算します。
+          </p>
         </section>
 
         <section className="grid gap-2" aria-labelledby="sea-title">
@@ -361,7 +539,7 @@ export function HomeCookedTab({
 
       <aside className="grid content-start gap-4 lg:sticky lg:top-20">
         <div className="status-window grid gap-3 p-4" aria-live="polite">
-          <h2 className="font-num">けいさん結果</h2>
+          <h2 className="text-sm font-medium text-[var(--brand-deep)]">計算結果</h2>
           {!result ? (
             <p className="text-sm text-muted-foreground">{calcError ?? "食材を追加すると、ここに計算結果が出ます。"}</p>
           ) : (
@@ -446,12 +624,14 @@ export function HomeCookedTab({
         )}
 
         <div className="grid gap-3 rounded-lg border border-border bg-white p-4">
-          <label className="flex items-center gap-2 text-sm">
-            <Checkbox checked={saveAsTag} onCheckedChange={(v) => setSaveAsTag(Boolean(v))} />
-            {recipeId ? "タグの内容を更新する" : "この料理をタグとして保存する(次回ワンタップで記録)"}
-          </label>
+          {!editingTagId && (
+            <label className="flex items-center gap-2 text-sm">
+              <Checkbox checked={saveAsTag} onCheckedChange={(v) => setSaveAsTag(Boolean(v))} />
+              {recipeId ? "タグの内容を更新する" : "この料理をタグとして保存する(次回ワンタップで記録)"}
+            </label>
+          )}
           <Button size="lg" disabled={pending || !result} onClick={submit}>
-            {pending ? "記録しています…" : "記録する"}
+            {pending ? "保存しています…" : editingTagId ? "タグを保存" : editingItemId ? "変更を保存" : "記録する"}
           </Button>
         </div>
       </aside>

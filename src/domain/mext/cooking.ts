@@ -11,7 +11,10 @@ export const COOKING_METHODS = [
   { code: "deep_fry", nameJa: "揚げる(素揚げ・から揚げ)", keywords: ["素揚げ", "から揚げ", "揚げ"], usesOil: true },
   { code: "tempura", nameJa: "天ぷら", keywords: ["天ぷら"], usesOil: true },
   { code: "fry", nameJa: "フライ", keywords: ["フライ"], usesOil: true },
-  { code: "simmer", nameJa: "煮る", keywords: ["水煮", "煮"], usesOil: false },
+  { code: "simmer", nameJa: "煮る(煮汁は残す)", keywords: ["水煮", "煮"], usesOil: false },
+  // 成分表の「ゆで」「水煮」はゆで汁・煮汁を捨てて測った値。汁ごと食べる料理では、溶け出た成分も摂るので
+  // 調理前の成分値で計算する(成分表の食品名には現れないので keywords は空)
+  { code: "soup", nameJa: "汁ごと食べる(味噌汁・スープ・鍋)", keywords: [], usesOil: false },
   { code: "microwave", nameJa: "電子レンジ", keywords: ["電子レンジ調理"], usesOil: false },
 ] as const;
 

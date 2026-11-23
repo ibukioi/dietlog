@@ -5,6 +5,7 @@ import { and, asc, desc, eq, inArray, like, or, sql } from "drizzle-orm";
 import type { CoefficientData, CookedVariantData, FoodData } from "@/domain/calc/home-cooked";
 import type { NutrientMap } from "@/domain/nutrients/types";
 import { expandFoodQuery } from "@/lib/food-query";
+import { normalizeJa } from "@/lib/ja-normalize";
 import { db } from "@/server/db/client";
 import * as s from "@/server/db/schema";
 
@@ -24,20 +25,27 @@ export interface FoodSearchHit {
  */
 export async function searchMextFoods(
   query: string,
-  opts: { mode: "ingredient" | "dish" | "seasoning"; limit?: number },
+  opts: { mode: "ingredient" | "dish" | "seasoning" | "oil"; limit?: number },
 ): Promise<FoodSearchHit[]> {
   const terms = expandFoodQuery(query);
   if (terms.length === 0) return [];
   const limit = opts.limit ?? 30;
 
-  const conds = terms.map((t) =>
+  const aliasLike = (t: string) =>
+    sql`exists (select 1 from ${s.mextFoodAlias} a where a.food_no = ${s.mextFood.foodNo} and a.alias like ${`%${t}%`})`;
+  // 同義語で展開した語すべてに一致する食品、または入力全体が別名(成分表備考の「別名」など)に一致する食品
+  // 例: 「米油」は「米→こめ」に展開されるが、米ぬか油の別名「米油」にも当てたい
+  const whole = normalizeJa(query);
+  const conds = [
     or(
-      like(s.mextFood.searchText, `%${t}%`),
-      sql`exists (select 1 from ${s.mextFoodAlias} a where a.food_no = ${s.mextFood.foodNo} and a.alias like ${`%${t}%`})`,
+      and(...terms.map((t) => or(like(s.mextFood.searchText, `%${t}%`), aliasLike(t)))),
+      whole ? aliasLike(whole) : undefined,
     ),
-  );
+  ];
   if (opts.mode === "ingredient") conds.push(eq(s.mextFood.isCooked, false));
   if (opts.mode === "seasoning") conds.push(inArray(s.mextFood.groupCode, ["03", "14", "17", "16"]));
+  // 油の欄は油脂類(14群)だけ
+  if (opts.mode === "oil") conds.push(eq(s.mextFood.groupCode, "14"));
 
   const first = terms[0];
   const rows = await db

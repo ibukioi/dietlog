@@ -23,7 +23,7 @@ export function FoodSearch({
   autoFocus,
   label,
 }: {
-  mode: "ingredient" | "dish" | "seasoning";
+  mode: "ingredient" | "dish" | "seasoning" | "oil";
   placeholder: string;
   onPick: (hit: FoodHit) => void;
   autoFocus?: boolean;

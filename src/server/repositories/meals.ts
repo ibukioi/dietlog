@@ -107,3 +107,54 @@ export async function setDayComplete(userId: string, date: string, isComplete: b
     .values({ userId, date, isComplete })
     .onConflictDoUpdate({ target: [s.dayStatus.userId, s.dayStatus.date], set: { isComplete } });
 }
+
+export async function getMealItem(userId: string, id: string): Promise<MealItemRow | null> {
+  const [r] = await db
+    .select({ item: s.mealItem, eatenOn: s.meal.eatenOn, mealType: s.meal.mealType })
+    .from(s.mealItem)
+    .innerJoin(s.meal, eq(s.meal.id, s.mealItem.mealId))
+    .where(and(eq(s.mealItem.id, id), eq(s.mealItem.userId, userId)));
+  return r ? { ...r.item, eatenOn: r.eatenOn, mealType: r.mealType } : null;
+}
+
+export interface MealItemPatch {
+  date?: string;
+  mealType?: MealType;
+  name?: string;
+  quantity?: number;
+  grams?: number | null;
+  nutrients?: NutrientMap;
+  calcTrace?: unknown;
+}
+
+/** 自分の記録だけを更新できる。日付・食事区分を変えたら別の meal に移す */
+export async function updateMealItem(userId: string, id: string, patch: MealItemPatch): Promise<boolean> {
+  const current = await getMealItem(userId, id);
+  if (!current) return false;
+  const date = patch.date ?? current.eatenOn;
+  const mealType = patch.mealType ?? current.mealType;
+  const mealId =
+    date !== current.eatenOn || mealType !== current.mealType
+      ? await ensureMeal(userId, date, mealType)
+      : current.mealId;
+  const n = patch.nutrients;
+  await db
+    .update(s.mealItem)
+    .set({
+      mealId,
+      ...(patch.name !== undefined && { nameSnapshot: patch.name }),
+      ...(patch.quantity !== undefined && { quantity: patch.quantity }),
+      ...(patch.grams !== undefined && { grams: patch.grams }),
+      ...(patch.calcTrace !== undefined && { calcTraceJson: patch.calcTrace }),
+      ...(n && {
+        nutrientsJson: n,
+        energyKcal: valueOf(n, CORE.energy),
+        proteinG: valueOf(n, CORE.protein),
+        fatG: valueOf(n, CORE.fat),
+        carbG: valueOf(n, CORE.carb),
+        saltG: valueOf(n, CORE.salt),
+      }),
+    })
+    .where(and(eq(s.mealItem.id, id), eq(s.mealItem.userId, userId)));
+  return true;
+}
