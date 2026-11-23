@@ -3,8 +3,10 @@ import "server-only";
 import { and, eq, gt, inArray } from "drizzle-orm";
 import { z } from "zod";
 
+import { katakanaToHiragana } from "@/lib/ja-normalize";
 import { db } from "@/server/db/client";
 import * as s from "@/server/db/schema";
+import { toReading } from "@/server/search/ja-reading";
 import { isCircuitOpen, openCircuit, takeToken } from "@/server/services/rate-limit";
 
 import { type OffCandidate, normalizeOffProduct, normalizeOffQuery, offProductSchema } from "./normalize";
@@ -39,11 +41,28 @@ async function readCache(queryNorm: string, now: number): Promise<OffCandidate[]
   return hit.codesJson.map((c) => byCode.get(c)).filter((x): x is OffCandidate => Boolean(x));
 }
 
+/**
+ * OFF は読みを理解しないので、見つからないときだけ別の表記でも探す。
+ * 例: 「手羽先」→「てばさき」「テバサキ」、「おにぎり」→「オニギリ」
+ */
 export async function searchOff(query: string, now = Date.now()): Promise<OffSearchResult> {
   const q = query.normalize("NFKC").trim().slice(0, 60);
   if (!q) return { status: "ok", source: "cache", products: [] };
-  const key = normalizeOffQuery(q);
+  const first = await searchOffOnce(q, normalizeOffQuery(q), now);
+  if (first.status !== "ok" || first.products.length > 0) return first;
 
+  const hira = katakanaToHiragana(await toReading(q));
+  const kata = hira.replace(/[ぁ-ゖ]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+  for (const variant of new Set([hira, kata])) {
+    if (!variant || variant === q) continue;
+    // ひらがなとカタカナは通常のキーだと同じになるので、表記ごとに別のキーで保存する
+    const res = await searchOffOnce(variant, `variant:${variant}`, now);
+    if (res.status !== "ok" || res.products.length > 0) return res;
+  }
+  return first;
+}
+
+async function searchOffOnce(q: string, key: string, now: number): Promise<OffSearchResult> {
   const cached = await readCache(key, now);
   if (cached) return { status: "ok", source: "cache", products: cached };
 

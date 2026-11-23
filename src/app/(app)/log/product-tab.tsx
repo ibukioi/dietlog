@@ -9,6 +9,7 @@ import { ProductForm, type ProductDraft } from "@/components/product-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSearchMatcher } from "@/components/use-search-matcher";
 import type { OffCandidate } from "@/server/off/normalize";
 
 import { saveAndLogProduct } from "./actions";
@@ -40,11 +41,11 @@ export function ProductTab({
   const [grams, setGrams] = useState("100");
 
   // 入力中は自分の商品だけをリアルタイムに絞り込む(外部 API は呼ばない)
+  const matches = useSearchMatcher(q);
   const mine = useMemo(() => {
-    const t = q.trim();
-    if (!t) return [];
-    return products.filter((p) => `${p.name} ${p.brand ?? ""}`.includes(t)).slice(0, 8);
-  }, [q, products]);
+    if (!q.trim()) return [];
+    return products.filter((p) => matches(`${p.name} ${p.brand ?? ""}`, p.reading)).slice(0, 8);
+  }, [q, products, matches]);
 
   async function searchOff(e?: React.FormEvent) {
     e?.preventDefault();

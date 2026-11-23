@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { requireUser } from "@/server/auth/session";
 import { listMyProducts } from "@/server/repositories/products";
+import { searchReadingOf } from "@/server/search/ja-reading";
 
 import { ProductsClient } from "./products-client";
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = { title: "自分の商品" };
 export default async function ProductsPage() {
   const user = await requireUser();
   const products = await listMyProducts(user.id, undefined, 200);
+  const readings = await Promise.all(products.map((p) => searchReadingOf([p.name, p.brand])));
   return (
     <div className="grid gap-4">
       <div>
@@ -20,7 +22,7 @@ export default async function ProductsPage() {
       </div>
       <ProductsClient
         uploadsEnabled={Boolean(process.env.BLOB_READ_WRITE_TOKEN)}
-        products={products.map((p) => ({
+        products={products.map((p, i) => ({
           id: p.id,
           source: p.source,
           externalRef: p.externalRef,
@@ -32,6 +34,7 @@ export default async function ProductsPage() {
           nutrients: p.nutrientsJson,
           imageBlobUrl: p.imageBlobUrl,
           useCount: p.useCount,
+          reading: readings[i],
         }))}
       />
     </div>

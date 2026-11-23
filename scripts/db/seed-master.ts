@@ -15,6 +15,7 @@ import { NUTRIENTS, NUTRIENT_CODES } from "../../src/domain/nutrients/catalog";
 import { parseMextValue } from "../../src/domain/mext/parse-value";
 import { COOKING_METHODS } from "../../src/domain/mext/cooking";
 import { displayNameFromMext, normalizeJa } from "../../src/lib/ja-normalize";
+import { searchReadingOf } from "../../src/server/search/ja-reading";
 
 config({ path: ".env.local" });
 
@@ -149,6 +150,13 @@ async function main() {
     if (xs.length) aliasesByFood.set(f.foodNo, xs);
   }
 
+  const readings = new Map(
+    await Promise.all(
+      foods.map(
+        async (f) => [f.foodNo, await searchReadingOf([f.nameRaw, ...(aliasesByFood.get(f.foodNo) ?? [])])] as const,
+      ),
+    ),
+  );
   const foodRows = foods.map((f) => {
     const refuse = parseMextValue(f.refuse).value;
     const aliases = aliasesByFood.get(f.foodNo) ?? [];
@@ -159,6 +167,7 @@ async function main() {
       nameRaw: f.nameRaw,
       nameDisplay: displayNameFromMext(f.nameRaw),
       searchText: normalizeJa([f.nameRaw, ...aliases].join(" ")),
+      searchReading: readings.get(f.foodNo) ?? "",
       refuseRate: refuse,
       isCooked: f.cookingMethod !== null,
       cookingMethodCode: f.cookingMethod,

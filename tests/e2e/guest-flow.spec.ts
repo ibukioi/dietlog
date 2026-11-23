@@ -53,6 +53,17 @@ test("料理・惣菜を目安値で記録できる", async ({ page }) => {
   await expect(page.getByText(/肉じゃが/).first()).toBeVisible();
 });
 
+test("食材は漢字・ひらがな・カタカナのどれでも検索できる", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "登録せずに試す" }).click();
+  await expect(page).toHaveURL(/\/home/, { timeout: 30_000 });
+  await page.goto("/log?tab=cook");
+  for (const q of ["手羽先", "てばさき", "テバサキ"]) {
+    await page.getByLabel("食材を追加").fill(q);
+    await expect(page.getByRole("button", { name: /手羽さき/ }).first()).toBeVisible();
+  }
+});
+
 test("記録を編集できる(量を変えると栄養値も増減する)", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "登録せずに試す" }).click();

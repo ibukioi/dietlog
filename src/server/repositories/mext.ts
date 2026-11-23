@@ -1,13 +1,15 @@
 import "server-only";
 
-import { and, asc, desc, eq, inArray, like, or, sql } from "drizzle-orm";
+import { type SQL, and, asc, desc, eq, inArray, like, or, sql } from "drizzle-orm";
+import type { SQLiteColumn } from "drizzle-orm/sqlite-core";
 
 import type { CoefficientData, CookedVariantData, FoodData } from "@/domain/calc/home-cooked";
 import type { NutrientMap } from "@/domain/nutrients/types";
 import { expandFoodQuery } from "@/lib/food-query";
-import { normalizeJa } from "@/lib/ja-normalize";
+import { hasKanji, normalizeJa } from "@/lib/ja-normalize";
 import { db } from "@/server/db/client";
 import * as s from "@/server/db/schema";
+import { readingTerms } from "@/server/search/ja-reading";
 
 export interface FoodSearchHit {
   foodNo: string;
@@ -36,47 +38,59 @@ export async function searchMextFoods(
   // 同義語で展開した語すべてに一致する食品、または入力全体が別名(成分表備考の「別名」など)に一致する食品
   // 例: 「米油」は「米→こめ」に展開されるが、米ぬか油の別名「米油」にも当てたい
   const whole = normalizeJa(query);
-  const conds = [
-    or(
-      and(...terms.map((t) => or(like(s.mextFood.searchText, `%${t}%`), aliasLike(t)))),
-      whole ? aliasLike(whole) : undefined,
-    ),
+  const direct = or(
+    and(...terms.map((t) => or(like(s.mextFood.searchText, `%${t}%`), aliasLike(t)))),
+    whole ? aliasLike(whole) : undefined,
+  );
+  const scope = [
+    opts.mode === "ingredient" ? eq(s.mextFood.isCooked, false) : undefined,
+    opts.mode === "seasoning" ? inArray(s.mextFood.groupCode, ["03", "14", "17", "16"]) : undefined,
+    // 油の欄は油脂類(14群)だけ
+    opts.mode === "oil" ? eq(s.mextFood.groupCode, "14") : undefined,
   ];
-  if (opts.mode === "ingredient") conds.push(eq(s.mextFood.isCooked, false));
-  if (opts.mode === "seasoning") conds.push(inArray(s.mextFood.groupCode, ["03", "14", "17", "16"]));
-  // 油の欄は油脂類(14群)だけ
-  if (opts.mode === "oil") conds.push(eq(s.mextFood.groupCode, "14"));
 
-  const first = terms[0];
-  const rows = await db
-    .select({
-      foodNo: s.mextFood.foodNo,
-      nameDisplay: s.mextFood.nameDisplay,
-      nameRaw: s.mextFood.nameRaw,
-      groupCode: s.mextFood.groupCode,
-      isCooked: s.mextFood.isCooked,
-      isDish: s.mextFood.isDish,
-      energyKcal: s.mextFoodNutrient.value,
-    })
-    .from(s.mextFood)
-    .leftJoin(
-      s.mextFoodNutrient,
-      and(eq(s.mextFoodNutrient.foodNo, s.mextFood.foodNo), eq(s.mextFoodNutrient.nutrientCode, "ENERC_KCAL")),
-    )
-    .where(and(...conds))
-    .orderBy(
-      // 料理タブでは料理・惣菜(18群・調理済み)を先に
-      desc(s.mextFood.popularity),
-      ...(opts.mode === "dish" ? [desc(s.mextFood.isDish)] : []),
-      ...(opts.mode === "ingredient" ? [desc(sql`${s.mextFood.nameRaw} like '%生'`)] : []),
-      // 名前の先頭に近い位置で一致するもの(別名だけで一致したものは後ろ)、短い名前を先に
-      asc(
-        sql`case when instr(${s.mextFood.searchText}, ${first}) = 0 then 999 else instr(${s.mextFood.searchText}, ${first}) end`,
-      ),
-      asc(sql`length(${s.mextFood.nameRaw})`),
-    )
-    .limit(limit);
-  return rows;
+  const run = (match: SQL | undefined, column: SQLiteColumn, first: string) =>
+    db
+      .select({
+        foodNo: s.mextFood.foodNo,
+        nameDisplay: s.mextFood.nameDisplay,
+        nameRaw: s.mextFood.nameRaw,
+        groupCode: s.mextFood.groupCode,
+        isCooked: s.mextFood.isCooked,
+        isDish: s.mextFood.isDish,
+        energyKcal: s.mextFoodNutrient.value,
+      })
+      .from(s.mextFood)
+      .leftJoin(
+        s.mextFoodNutrient,
+        and(eq(s.mextFoodNutrient.foodNo, s.mextFood.foodNo), eq(s.mextFoodNutrient.nutrientCode, "ENERC_KCAL")),
+      )
+      .where(and(match, ...scope))
+      .orderBy(
+        // 料理タブでは料理・惣菜(18群・調理済み)を先に
+        desc(s.mextFood.popularity),
+        ...(opts.mode === "dish" ? [desc(s.mextFood.isDish)] : []),
+        ...(opts.mode === "ingredient" ? [desc(sql`${s.mextFood.nameRaw} like '%生'`)] : []),
+        // 名前の先頭に近い位置で一致するもの(別名だけで一致したものは後ろ)、短い名前を先に
+        asc(sql`case when instr(${column}, ${first}) = 0 then 999 else instr(${column}, ${first}) end`),
+        asc(sql`length(${s.mextFood.nameRaw})`),
+      )
+      .limit(limit);
+
+  const hits = await run(direct, s.mextFood.searchText, terms[0]);
+  // 漢字でそのまま見つかったら読みでは広げない(「鮭」で同音の「酒」を出さない)
+  if (hits.length > 0 && hasKanji(query)) return hits;
+
+  // 読みで探す: 「手羽先」「てばさき」「テバサキ」→ 手羽さき
+  const reading = await readingTerms(query);
+  if (reading.length === 0) return hits;
+  const byReading = await run(
+    and(...reading.map((t) => like(s.mextFood.searchReading, `%${t}%`))),
+    s.mextFood.searchReading,
+    reading[0],
+  );
+  const seen = new Set(hits.map((h) => h.foodNo));
+  return [...hits, ...byReading.filter((h) => !seen.has(h.foodNo))].slice(0, limit);
 }
 
 export async function getFoods(foodNos: string[]): Promise<Map<string, FoodData>> {

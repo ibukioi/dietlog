@@ -17,7 +17,13 @@ const ALIASES = (aliasesJson.aliases as [string, string][])
 export function expandFoodQuery(query: string): string[] {
   const out: string[] = [];
   for (const raw of query.split(/[\s　]+/)) {
-    const t = normalizeJa(raw);
+    let t = normalizeJa(raw);
+    // かなで続けて書いた鶏の部位(「とりむね」「トリモモ」)は「にわとり」と部位に分ける
+    const chicken = /^とり(むね|もも|ささみ|てば|ひき)/.exec(t);
+    if (chicken) {
+      out.push("にわとり");
+      t = t.slice(2);
+    }
     // 左から最長一致で別名を置き換える(置き換えた語は再度置き換えない)
     let rest = "";
     let i = 0;

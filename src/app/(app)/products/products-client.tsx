@@ -8,13 +8,20 @@ import { ProductForm, type ProductDraft } from "@/components/product-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSearchMatcher } from "@/components/use-search-matcher";
 
 import { saveProductAction } from "../log/actions";
 
 import { deleteProductAction } from "./actions";
 import { EmptyIllustration } from "@/components/food-illustrations";
 
-type P = Omit<ProductDraft, "source"> & { id: string; useCount: number; source: ProductDraft["source"] | "mext" };
+type P = Omit<ProductDraft, "source"> & {
+  id: string;
+  useCount: number;
+  source: ProductDraft["source"] | "mext";
+  /** 検索用の読み(ひらがな) */
+  reading: string;
+};
 
 const SOURCE_LABEL: Record<string, string> = {
   off: "Open Food Facts",
@@ -28,7 +35,8 @@ export function ProductsClient({ products, uploadsEnabled }: { products: P[]; up
   const [q, setQ] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
   const [pending, start] = useTransition();
-  const shown = products.filter((p) => !q || `${p.name}${p.brand ?? ""}`.includes(q));
+  const matches = useSearchMatcher(q);
+  const shown = products.filter((p) => !q.trim() || matches(`${p.name} ${p.brand ?? ""}`, p.reading));
 
   return (
     <div className="grid gap-3">

@@ -26,3 +26,23 @@ export function displayNameFromMext(nameRaw: string): string {
     .replace(/　+/g, " ")
     .trim();
 }
+
+/** 漢字を含むか(含まなければ、正規化だけで読みとして比べられる) */
+export function hasKanji(s: string): boolean {
+  return /[\p{Script=Han}]/u.test(s);
+}
+
+/**
+ * 画面内の絞り込み用: 名前にそのまま含まれるか、読みに検索語の読みがすべて含まれるか。
+ * readingTerms は漢字を読みに直した語(サーバーで作る)
+ */
+export function matchesSearch(query: string, text: string, reading: string, readingTerms: string[]): boolean {
+  const words = query
+    .split(/[\s　]+/)
+    .map(normalizeJa)
+    .filter(Boolean);
+  if (words.length === 0) return true;
+  const target = normalizeJa(text);
+  if (words.every((w) => target.includes(w))) return true;
+  return readingTerms.length > 0 && readingTerms.every((t) => reading.includes(t));
+}

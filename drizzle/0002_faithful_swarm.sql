@@ -1,0 +1,1 @@
+ALTER TABLE `mext_food` ADD `search_reading` text DEFAULT '' NOT NULL;

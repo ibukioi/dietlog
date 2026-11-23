@@ -5,6 +5,7 @@ import { requireUser } from "@/server/auth/session";
 import { getMealItem } from "@/server/repositories/meals";
 import { listMyProducts } from "@/server/repositories/products";
 import { listRecipes } from "@/server/repositories/recipes";
+import { searchReadingOf } from "@/server/search/ja-reading";
 
 import { LogClient } from "./log-client";
 
@@ -34,6 +35,7 @@ export default async function LogPage({
     ((MEAL_TYPES as readonly string[]).includes(sp.meal ?? "") ? (sp.meal as MealType) : guessMealType());
   const editTagId = sp.editTag && /^[0-9a-f-]{36}$/.test(sp.editTag) ? sp.editTag : null;
   const [products, recipes] = await Promise.all([listMyProducts(user.id), listRecipes(user.id)]);
+  const productReadings = await Promise.all(products.map((p) => searchReadingOf([p.name, p.brand])));
 
   return (
     <div className="grid gap-4">
@@ -51,7 +53,7 @@ export default async function LogPage({
         tagReturnTo={sp.from === "recipes" ? "/recipes" : null}
         editItemId={editItem?.kind === "home_cooked" ? editItem.id : null}
         uploadsEnabled={Boolean(process.env.BLOB_READ_WRITE_TOKEN)}
-        products={products.map((p) => ({
+        products={products.map((p, i) => ({
           id: p.id,
           name: p.name,
           brand: p.brand,
@@ -60,6 +62,7 @@ export default async function LogPage({
           servingLabel: p.servingLabel,
           servingSizeG: p.servingSizeG,
           kcal: p.nutrientsJson.ENERC_KCAL ?? null,
+          reading: productReadings[i],
         }))}
         recipes={recipes.map((r) => ({
           id: r.id,

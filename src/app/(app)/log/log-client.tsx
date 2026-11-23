@@ -23,6 +23,8 @@ export interface ProductSummary {
   servingLabel: string | null;
   servingSizeG: number | null;
   kcal: number | null;
+  /** 検索用の読み(ひらがな) */
+  reading: string;
 }
 export interface RecipeSummary {
   id: string;

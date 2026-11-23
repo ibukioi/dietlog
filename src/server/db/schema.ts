@@ -163,6 +163,8 @@ export const mextFood = sqliteTable(
     nameRaw: text("name_raw").notNull(),
     nameDisplay: text("name_display").notNull(),
     searchText: text("search_text").notNull(),
+    /** 食品名・別名の読み(ひらがな)。漢字・かなの表記ゆれを吸収する */
+    searchReading: text("search_reading").notNull().default(""),
     refuseRate: real("refuse_rate"),
     isCooked: integer("is_cooked", { mode: "boolean" }).notNull().default(false),
     cookingMethodCode: text("cooking_method_code"),

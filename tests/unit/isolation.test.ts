@@ -7,7 +7,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 const dir = mkdtempSync(path.join(tmpdir(), "dietlog-test-"));
 const url = `file:${path.join(dir, "test.db")}`;
@@ -167,6 +167,41 @@ describe("タグの編集", () => {
     const r = await m.recipes.getRecipe("alice", id);
     expect(r).toMatchObject({ name: "卵焼き" });
     expect(r!.ingredients).toHaveLength(1);
+  });
+});
+
+describe("食品・商品の検索(漢字・かな)", () => {
+  it.each(["手羽先", "手羽さき", "てばさき", "テバサキ"])("成分表: %s で手羽さきが見つかる", async (q) => {
+    const { searchMextFoods } = await import("@/server/repositories/mext");
+    const hits = await searchMextFoods(q, { mode: "ingredient" });
+    expect(hits.some((h) => h.nameRaw.includes("手羽さき"))).toBe(true);
+  });
+
+  it("漢字でそのまま見つかるときは同音の別の食品を混ぜない", async () => {
+    const { searchMextFoods } = await import("@/server/repositories/mext");
+    const hits = await searchMextFoods("鮭", { mode: "ingredient" });
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.some((h) => h.nameRaw.includes("清酒"))).toBe(false);
+  });
+
+  it("Open Food Facts で見つからないときは、かな表記でも探す", async () => {
+    const { searchOff } = await import("@/server/off/client");
+    const searched: string[] = [];
+    const fetchMock = vi.fn(async (input: string | URL | Request) => {
+      const term = new URL(String(input)).searchParams.get("search_terms")!;
+      searched.push(term);
+      const products =
+        term === "テバサキ" ? [{ code: "4900000000001", product_name: "テバサキ唐揚げ", nutriments: {} }] : [];
+      return new Response(JSON.stringify({ products }), { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    try {
+      const r = await searchOff("手羽先");
+      expect(searched).toEqual(["手羽先", "てばさき", "テバサキ"]);
+      expect(r).toMatchObject({ status: "ok", products: [{ name: "テバサキ唐揚げ" }] });
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
 
