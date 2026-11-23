@@ -67,7 +67,7 @@ test("記録を編集できる(量を変えると栄養値も増減する)", asy
   await dialog.getByLabel("名前").fill("豆腐とわかめの味噌汁(おかわり)");
   await dialog.getByRole("button", { name: "変更を保存" }).click();
 
-  const edited = page.getByRole("listitem").filter({ hasText: "豆腐とわかめの味噌汁(おかわり)" });
+  const edited = page.getByRole("main").getByRole("listitem").filter({ hasText: "豆腐とわかめの味噌汁(おかわり)" });
   await expect(edited).toBeVisible();
   await expect
     .poll(async () => Number((await edited.getByText(/kcal$/).first().textContent())!.replace(/[^\d.]/g, "")))
