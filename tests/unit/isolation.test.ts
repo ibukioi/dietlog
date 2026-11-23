@@ -223,6 +223,38 @@ describe("お試しモード", () => {
     expect((await m.meals.listItemsInRange("member1", "2026-11-01", "2026-11-30")).length).toBeGreaterThan(30);
   });
 
+  it("既存アカウントにログインしても、同じ日・食事・商品が重なったまま引き継げる", async () => {
+    await createUser("guest2", true);
+    await createUser("member2", false);
+    const product = {
+      source: "off" as const,
+      externalRef: "4901234567890",
+      name: "同じ商品",
+      brand: null,
+      basis: "per_100g" as const,
+      servingSizeG: null,
+      servingLabel: null,
+      nutrientsJson: { ENERC_KCAL: 100 },
+      imageBlobUrl: null,
+      isEstimate: false,
+    };
+    const guestProduct = await m.products.saveMyProduct("guest2", product);
+    const memberProduct = await m.products.saveMyProduct("member2", product);
+    await m.meals.addMealItem("guest2", { ...item("お試しの昼食"), myProductId: guestProduct });
+    await m.meals.addMealItem("member2", item("本登録の昼食"));
+    await m.meals.setDayComplete("guest2", "2026-11-20", false);
+    await m.meals.setDayComplete("member2", "2026-11-20", true);
+
+    await m.account.transferUserData(m.db, "guest2", "member2");
+
+    const items = await m.meals.listItemsInRange("member2", "2026-11-20", "2026-11-20");
+    expect(items.map((i) => i.nameSnapshot).sort()).toEqual(["お試しの昼食", "本登録の昼食"].sort());
+    expect(new Set(items.map((i) => i.mealId)).size).toBe(1);
+    expect(items.find((i) => i.nameSnapshot === "お試しの昼食")?.myProductId).toBe(memberProduct);
+    expect((await m.meals.getDayStatuses("member2", "2026-11-20", "2026-11-20")).get("2026-11-20")).toBe(true);
+    expect(await m.meals.listItemsInRange("guest2", "2026-11-20", "2026-11-20")).toHaveLength(0);
+  });
+
   it("期限切れのお試しユーザーは記録ごと削除される", async () => {
     await createUser("old-guest", true, new Date("2026-11-01"));
     await m.meals.addMealItem("old-guest", item("古い記録"));

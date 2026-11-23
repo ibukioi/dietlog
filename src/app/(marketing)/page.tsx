@@ -8,8 +8,10 @@ import { Wordmark } from "@/components/wordmark";
 import { buttonVariants } from "@/components/ui/button";
 import { gaugeState } from "@/domain/goals/goals";
 import { cn } from "@/lib/utils";
+import { isGithubEnabled } from "@/server/auth/auth";
 import { getCurrentUser } from "@/server/auth/session";
 
+import { GithubLoginButton } from "./github-login-button";
 import { StartGuestButton } from "./start-guest-button";
 
 const demo = [
@@ -31,16 +33,19 @@ const demo = [
   ),
 ];
 
-async function ContinueLink() {
+async function AccountLinks() {
   const user = await getCurrentUser();
-  if (!user) return null;
+  if (!user) return isGithubEnabled ? <GithubLoginButton label="GitHub でログイン" /> : null;
   return (
-    <Link
-      href="/home"
-      className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-12 rounded-full bg-white px-7 text-base")}
-    >
-      続きから使う
-    </Link>
+    <>
+      <Link
+        href="/home"
+        className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-12 rounded-full bg-white px-7 text-base")}
+      >
+        続きから使う
+      </Link>
+      {user.isAnonymous && isGithubEnabled && <GithubLoginButton label="GitHub で本登録" />}
+    </>
   );
 }
 
@@ -88,7 +93,7 @@ export default function LandingPage() {
               <div className="flex flex-wrap items-start gap-3">
                 <StartGuestButton />
                 <Suspense>
-                  <ContinueLink />
+                  <AccountLinks />
                 </Suspense>
               </div>
               <p className="text-xs text-[var(--ink-soft)]">
