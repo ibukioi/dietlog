@@ -8,6 +8,7 @@
 | `mext/meta.json` | 取り込み元のURL・SHA-256、正誤表との照合結果 | 同上 + 正誤表(データ) 令和8年3月27日 | 同上 |
 | `mext/cooked-variants.json` | 生食品 × 調理法 → 調理後食品・重量変化率 | 同 第1章 表12 | `manual/table12_weight_change.csv` と食品名の対応から生成 |
 | `mext/cooking-coefficients.json` | 調理法 × 食品群の後備係数(重量変化率・吸油量の中央値) | 表12 と調理前後の脂質から算出 | `pnpm data:build` |
+| `mext/retention-factors.json` | 調理法 × 食品群 × 成分の残存率(ビタミン・ミネラル、中央値) | 表12 の重量変化率と調理前後の成分値から算出 | `pnpm data:retention` |
 | `manual/table12_weight_change.csv` | 表12 の食品番号ごとの重量変化率(509 件) | 同 電子書籍PDF 第1章 表12 | `scripts/data/extract_table12.py`(列の x 座標で抽出する転記補助) |
 | `manual/aliases.json` | 検索用の同義語辞書(「鶏むね」→「にわとり むね」など) | 手作業 | — |
 | `manual/popular.json` | 検索で上位に出すよく使う食品 | 手作業 | — |

@@ -5,11 +5,13 @@
  *      摂取量 = N_cooked × (W_raw × WCR / 100) / 100
  * ② ない食材は生の成分値 + 吸油量(後備)
  *      摂取量 = N_raw × W_raw / 100,  吸油量 = W_raw × a / 100
+ *      ビタミン・ミネラルは調理による残存率(調理法 × 食品群の中央値)を掛ける
  * ③ 調味料は使用量(g) をそのまま加算。大さじ・小さじ・ml は密度で g に換算
  *
  * フレームワークに依存しない純粋関数。データの取得は呼び出し側で行う。
  */
 import { OIL_METHODS, type CookingMethodCode } from "@/domain/mext/cooking";
+import type { RetentionData } from "@/domain/mext/retention";
 import { type NutrientMap, roundMap, scale, valueOf } from "@/domain/nutrients/types";
 
 export interface FoodData {
@@ -53,6 +55,8 @@ export interface IngredientInput {
   variant?: CookedVariantData | null;
   /** 呼び出し側で解決した後備係数(なければ null) */
   coefficient?: CoefficientData | null;
+  /** 呼び出し側で解決した調理による残存率(後備経路だけで使う。なければ null) */
+  retention?: RetentionData | null;
 }
 
 export interface CalcOptions {
@@ -128,6 +132,16 @@ export function toRawEdibleGrams(
 
 function per100(n: NutrientMap, grams: number): NutrientMap {
   return scale(n, grams / 100);
+}
+
+/** 残存率を掛ける(不明値は不明のまま) */
+export function applyRetention(n: NutrientMap, factors: Record<string, number>): NutrientMap {
+  const out: NutrientMap = { ...n };
+  for (const [code, f] of Object.entries(factors)) {
+    const v = n[code];
+    if (typeof v === "number") out[code] = v * f;
+  }
+  return out;
 }
 
 /** 不明値がエネルギー(不明なら重量)の何割までなら既知値の合計を採用するか */
@@ -235,6 +249,11 @@ export function calcRecipe(inputs: IngredientInput[], opts: CalcOptions): Recipe
       // ② 後備: 生の成分値 + 吸油量
       path = "fallback";
       nutrients = per100(ing.food.nutrients, wRaw);
+      const retention = ing.retention ?? null;
+      if (retention) {
+        nutrients = applyRetention(nutrients, retention.factors);
+        lineNotes.push(`ビタミン・ミネラルは調理による損失を補正(${retention.basis})`);
+      }
       cookedG = (wRaw * wcr) / 100;
       if (OIL_METHODS.has(ing.method)) {
         capacity = (wRaw * (coef?.oilAbsorptionPct ?? 0)) / 100;

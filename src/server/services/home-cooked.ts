@@ -1,11 +1,15 @@
 import "server-only";
 
 import { type AmountUnit, type IngredientInput, type WeightBasis, calcRecipe } from "@/domain/calc/home-cooked";
+import retentionData from "../../../data/mext/retention-factors.json";
 import type { CookingMethodCode } from "@/domain/mext/cooking";
+import { type RetentionEntry, resolveRetention } from "@/domain/mext/retention";
 import { NUTRIENT_CODES } from "@/domain/nutrients/catalog";
 import { getFoods, resolveCoefficient, resolveVariant } from "@/server/repositories/mext";
 
 export const DEFAULT_OIL_FOOD_NO = "14006"; // 調合油
+
+const RETENTION = retentionData.entries as RetentionEntry[];
 
 export interface IngredientSpec {
   role: "ingredient" | "oil" | "seasoning";
@@ -30,6 +34,7 @@ export async function calculateHomeCooked(specs: IngredientSpec[], servings: num
       food,
       variant: cooks ? await resolveVariant(spec.foodNo, spec.method) : null,
       coefficient: cooks ? await resolveCoefficient(spec.method, food.groupCode) : null,
+      retention: cooks ? resolveRetention(RETENTION, spec.method, food.groupCode) : null,
     });
   }
   const result = calcRecipe(inputs, { servings, defaultOil: foods.get(DEFAULT_OIL_FOOD_NO)! });

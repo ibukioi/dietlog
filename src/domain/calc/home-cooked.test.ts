@@ -120,6 +120,49 @@ describe("② 調理後データがない場合は生の成分値 + 吸油量(�
   });
 });
 
+describe("② 後備の計算では、調理によるビタミン・ミネラルの損失を補正する", () => {
+  const chicken = food("11220"); // むね 皮なし 生
+  const retention = { factors: { VITC: 0.5, THIA: 0.8, K: 0.9 }, basis: "テスト" };
+  const base: IngredientInput = {
+    role: "ingredient",
+    food: chicken,
+    amount: 100,
+    unit: "g",
+    weightBasis: "raw",
+    method: "boil",
+    variant: null,
+    coefficient: { weightChangeRate: 80, oilAbsorptionPct: 0, basis: "テスト" },
+    retention,
+  };
+
+  it("残存率を掛け、エネルギー・たんぱく質は変えない", () => {
+    const r = calcRecipe([base], opts);
+    expect(r.total.THIA).toBeCloseTo(chicken.nutrients.THIA! * 0.8);
+    expect(r.total.K).toBeCloseTo(chicken.nutrients.K! * 0.9);
+    expect(r.total.ENERC_KCAL).toBeCloseTo(chicken.nutrients.ENERC_KCAL!);
+    expect(r.total["PROT-"]).toBeCloseTo(chicken.nutrients["PROT-"]!);
+    expect(r.lines[0].notes.join()).toContain("損失を補正");
+  });
+
+  it("調理後データ・汁ごと・生では補正しない", () => {
+    const cooked = calcRecipe(
+      [
+        {
+          ...base,
+          food: spinachRaw,
+          variant: { cookedFood: spinachBoiled, weightChangeRate: 70, includesOil: false },
+        },
+      ],
+      opts,
+    );
+    expect(cooked.total.VITC).toBeCloseTo((spinachBoiled.nutrients.VITC! * 70) / 100);
+    const soup = calcRecipe([{ ...base, food: spinachRaw, method: "soup" }], opts);
+    expect(soup.total.VITC).toBeCloseTo(spinachRaw.nutrients.VITC!);
+    const raw = calcRecipe([{ ...base, food: spinachRaw, method: "raw" }], opts);
+    expect(raw.total.VITC).toBeCloseTo(spinachRaw.nutrients.VITC!);
+  });
+});
+
 describe("汁ごと食べる(味噌汁・スープ)", () => {
   it("調理後データがあっても使わず、調理前の成分値で計算する(溶け出た成分も摂るため)", () => {
     const r = calcRecipe(

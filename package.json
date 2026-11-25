@@ -16,6 +16,7 @@
     "db:seed": "tsx scripts/db/seed-master.ts",
     "data:download": "tsx scripts/data/download-mext.ts",
     "data:build": "tsx scripts/data/build-mext.ts",
+    "data:retention": "tsx scripts/data/build-retention.ts",
     "data:warm-off": "tsx scripts/data/warm-off-cache.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
