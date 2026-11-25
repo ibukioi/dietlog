@@ -333,7 +333,7 @@ export function HomeCookedTab({
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-      <div className="grid content-start gap-5">
+      <div className="grid min-w-0 content-start gap-5">
         {editingItemId && (
           <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-[var(--brand-soft)] px-4 py-3 text-sm">
             <span>記録済みの「{name}」を編集しています。保存すると、この記録を計算し直して上書きします。</span>
