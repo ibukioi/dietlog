@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { EATING_OUT_LABEL } from "@/domain/calc/eating-out";
 import { COOKING_METHODS } from "@/domain/mext/cooking";
 import { PRIMARY_CODES } from "@/domain/nutrients/catalog";
 import type { NutrientMap } from "@/domain/nutrients/types";
@@ -184,6 +185,41 @@ export async function logHomeCooked(input: z.infer<typeof logHomeCookedSchema>) 
       servings: v.servings,
     }),
     recipeId,
+  });
+  return done(itemId);
+}
+
+/** 外食を材料から推定して記録(1 人前を食べた扱い。量は推計値なので「推定値」として残す) */
+const logEatingOutSchema = where.extend({
+  name: logHomeCookedSchema.shape.name,
+  ingredients: homeCookedSchema.shape.ingredients,
+  /** 推定に使った入力(あとで見返す・計算をやり直すため) */
+  estimate: z.object({
+    dishType: z.string().max(20),
+    size: z.enum(["small", "regular", "large"]),
+    method: z.enum(methodCodes),
+    addSeasoning: z.boolean(),
+  }),
+});
+
+export async function logEatingOut(input: z.infer<typeof logEatingOutSchema>) {
+  const user = await requireUser();
+  const v = logEatingOutSchema.parse(input);
+  const specs = v.ingredients as IngredientSpec[];
+  const result = await calculateHomeCooked(specs, 1);
+  const body = recipeItem({ id: "", name: v.name }, result.perServing, 1, {
+    ...traceOf(result),
+    specs,
+    servings: 1,
+    estimate: v.estimate,
+  });
+  const itemId = await addMealItem(user.id, {
+    date: v.date,
+    mealType: v.mealType,
+    ...body,
+    recipeId: null,
+    isEstimate: true,
+    sourceLabel: EATING_OUT_LABEL,
   });
   return done(itemId);
 }

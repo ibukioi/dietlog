@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { deleteMealItemAction } from "@/app/(app)/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EATING_OUT_LABEL } from "@/domain/calc/eating-out";
 import { MEAL_TYPE_LABEL, type MealType } from "@/lib/dates";
 import { type EditableItem, useMealItemEditor } from "@/components/edit-meal-item";
 import { MealIcon } from "@/components/food-illustrations";
@@ -40,7 +41,7 @@ function ItemRow({ item, editable, today }: { item: MealListItem; editable: bool
           )}
           {item.isEstimate && (
             <Badge variant="secondary" className="h-5 px-1.5 text-[10px] font-normal">
-              目安値
+              {item.sourceLabel === EATING_OUT_LABEL ? "推定値" : "目安値"}
             </Badge>
           )}
         </p>

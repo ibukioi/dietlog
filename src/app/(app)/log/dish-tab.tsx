@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { logMextDish } from "./actions";
+import { EatingOutForm } from "./eating-out-form";
 import type { Where } from "./log-client";
 
 const PRESETS = [100, 150, 200, 250, 300];
@@ -25,6 +26,7 @@ export function DishTab({
   const [picked, setPicked] = useState<FoodHit | null>(null);
   const [grams, setGrams] = useState("200");
   const [pending, start] = useTransition();
+  const [estimating, setEstimating] = useState(false);
   const g = parseNum(grams);
   const kcal = picked?.energyKcal != null && g ? Math.round((picked.energyKcal * g) / 100) : null;
 
@@ -89,15 +91,29 @@ export function DishTab({
       )}
       <p className="text-sm text-muted-foreground">
         見つからないときは、
-        <button type="button" className="mx-1 underline" onClick={() => goTab("cook")}>
-          材料から自炊として記録
+        <button
+          type="button"
+          className="mx-1 underline"
+          onClick={() => {
+            setEstimating(true);
+            requestAnimationFrame(() =>
+              document.getElementById("eat-out-title")?.scrollIntoView({ behavior: "smooth", block: "start" }),
+            );
+          }}
+        >
+          材料から推定
         </button>
         するか、
         <button type="button" className="mx-1 underline" onClick={() => goTab("manual")}>
           手入力
         </button>
-        できます。
+        できます。自分で作った料理は
+        <button type="button" className="mx-1 underline" onClick={() => goTab("cook")}>
+          自炊
+        </button>
+        から記録してください。
       </p>
+      {estimating && <EatingOutForm where={where} onLogged={onLogged} />}
     </div>
   );
 }

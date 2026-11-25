@@ -53,6 +53,47 @@ test("料理・惣菜を目安値で記録できる", async ({ page }) => {
   await expect(page.getByText(/肉じゃが/).first()).toBeVisible();
 });
 
+test("成分表にない外食を材料から推定し、推定値として記録できる", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "登録せずに試す" }).click();
+  await expect(page).toHaveURL(/\/home/, { timeout: 30_000 });
+  await page.goto("/log?tab=dish&meal=lunch");
+  await page.getByRole("button", { name: "材料から推定" }).click();
+
+  const form = page.locator("section", { has: page.locator("#eat-out-title") });
+  await form.getByLabel("料理名").fill("豚丼(E2E)");
+  await form.getByRole("radio", { name: "丼もの" }).click();
+  await form.getByLabel("調理法(料理全体)").selectOption("saute");
+  const search = form.getByLabel("外食の食材を追加");
+  await search.fill("ごはん");
+  await form
+    .getByRole("button", { name: /水稲めし 精白米 うるち米/ })
+    .first()
+    .click();
+  await search.fill("ぶた ばら");
+  await form
+    .getByRole("button", { name: /ばら 脂身つき 生/ })
+    .first()
+    .click();
+  await search.fill("たまねぎ");
+  await form
+    .getByRole("button", { name: /たまねぎ りん茎 生/ })
+    .first()
+    .click();
+
+  // ごはんは丼の量(250 g)、具は普通 170 g を メイン 4 : たっぷり 2 で按分
+  await expect(form.getByLabel("盛り付けた重さ(g)")).toHaveValue("250");
+  await expect(form.getByText("約 113 g")).toBeVisible();
+  await expect(form.getByText("約 57 g")).toBeVisible();
+  await expect(form.locator(".status-window")).toContainText("kcal");
+
+  await form.getByRole("button", { name: "推定値として記録する" }).click();
+  await expect(page).toHaveURL(/\/home/);
+  const row = page.locator("li", { hasText: "豚丼(E2E)" });
+  await expect(row.getByText("外食(材料から推定)")).toBeVisible();
+  await expect(row.getByText("推定値", { exact: true })).toBeVisible();
+});
+
 test("食材は漢字・ひらがな・カタカナのどれでも検索できる", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "登録せずに試す" }).click();
