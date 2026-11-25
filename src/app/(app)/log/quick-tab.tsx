@@ -62,7 +62,7 @@ function EditLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-function RecipeRow({ r, where, onLogged }: { r: RecipeSummary; where: Where; onLogged: () => void }) {
+function RecipeRow({ r, where, onLogged }: { r: RecipeSummary; where: Where; onLogged: (itemId?: string) => void }) {
   const [servings, setServings] = useState(1);
   const [pending, start] = useTransition();
   return (
@@ -80,9 +80,9 @@ function RecipeRow({ r, where, onLogged }: { r: RecipeSummary; where: Where; onL
           disabled={pending}
           onClick={() =>
             start(async () => {
-              await logRecipe({ ...where, recipeId: r.id, eatenServings: servings });
+              const res = await logRecipe({ ...where, recipeId: r.id, eatenServings: servings });
               toast.success(`${r.name}を記録しました`);
-              onLogged();
+              onLogged(res.itemId);
             })
           }
         >
@@ -93,7 +93,7 @@ function RecipeRow({ r, where, onLogged }: { r: RecipeSummary; where: Where; onL
   );
 }
 
-function ProductRow({ p, where, onLogged }: { p: ProductSummary; where: Where; onLogged: () => void }) {
+function ProductRow({ p, where, onLogged }: { p: ProductSummary; where: Where; onLogged: (itemId?: string) => void }) {
   const perServing = p.basis === "per_serving";
   const [amount, setAmount] = useState(perServing ? 1 : (p.servingSizeG ?? 100));
   const [pending, start] = useTransition();
@@ -121,13 +121,13 @@ function ProductRow({ p, where, onLogged }: { p: ProductSummary; where: Where; o
           disabled={pending}
           onClick={() =>
             start(async () => {
-              await logMyProduct({
+              const res = await logMyProduct({
                 ...where,
                 productId: p.id,
                 amount: perServing ? { servings: amount } : { grams: amount },
               });
               toast.success(`${p.name}を記録しました`);
-              onLogged();
+              onLogged(res.itemId);
             })
           }
         >
@@ -148,7 +148,7 @@ export function QuickTab({
   where: Where;
   products: ProductSummary[];
   recipes: RecipeSummary[];
-  onLogged: () => void;
+  onLogged: (itemId?: string) => void;
   goTab: (t: string) => void;
 }) {
   return (

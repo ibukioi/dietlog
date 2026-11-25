@@ -293,6 +293,51 @@ describe("Open Food Facts の混雑時の動き", () => {
   });
 });
 
+describe("料理の写真", () => {
+  const jpeg = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3, 4]);
+
+  it("自分の記録にだけ付けられ、本人だけが取得できる", async () => {
+    const photos = await import("@/server/repositories/meal-photos");
+    await createUser("photo1", false);
+    const id = await m.meals.addMealItem("photo1", item("写真つきの昼食"));
+    expect(await photos.setMealPhoto("bob", id, jpeg, "image/jpeg")).toBeNull();
+    const saved = await photos.setMealPhoto("photo1", id, jpeg, "image/jpeg");
+    expect(saved!.url).toMatch(new RegExp(`^/api/meal-photos/${id}\\?v=\\d+$`));
+    expect(await photos.getMealPhoto("bob", id)).toBeNull();
+    const got = await photos.getMealPhoto("photo1", id);
+    expect(new Uint8Array(got!.data)).toEqual(jpeg);
+    expect((await photos.listMealPhotoUrls("photo1", [id])).get(id)).toBe(saved!.url);
+    expect(await photos.deleteMealPhoto("bob", id)).toBe(false);
+  });
+
+  it("記録を消すと写真も消える", async () => {
+    const photos = await import("@/server/repositories/meal-photos");
+    const id = await m.meals.addMealItem("photo1", item("消す記録"));
+    await photos.setMealPhoto("photo1", id, jpeg, "image/jpeg");
+    await m.meals.deleteMealItem("photo1", id);
+    expect(await photos.getMealPhoto("photo1", id)).toBeNull();
+  });
+
+  it("本登録で写真も引き継ぐ", async () => {
+    const photos = await import("@/server/repositories/meal-photos");
+    await createUser("photoguest", true);
+    const id = await m.meals.addMealItem("photoguest", item("お試し中の夕食"));
+    await photos.setMealPhoto("photoguest", id, jpeg, "image/jpeg");
+    await createUser("photomember", false);
+    await m.account.transferUserData(m.db, "photoguest", "photomember");
+    expect(await photos.getMealPhoto("photomember", id)).not.toBeNull();
+    expect(await photos.getMealPhoto("photoguest", id)).toBeNull();
+  });
+
+  it("画像の種類は中身の先頭バイトで判定する", async () => {
+    const { sniffImageType } = await import("@/server/repositories/meal-photos");
+    expect(sniffImageType(jpeg)).toBe("image/jpeg");
+    expect(sniffImageType(new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d]))).toBe("image/png");
+    expect(sniffImageType(new TextEncoder().encode("RIFF0000WEBPVP8 "))).toBe("image/webp");
+    expect(sniffImageType(new TextEncoder().encode("<svg onload=alert(1)>"))).toBeNull();
+  });
+});
+
 describe("お試しモード", () => {
   it("サンプルデータは今日から相対の日付で入る", async () => {
     await createUser("guest1", true);

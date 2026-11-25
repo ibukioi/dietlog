@@ -16,7 +16,7 @@ export function QuickProductList({
 }: {
   products: ProductSummary[];
   where: Where;
-  onLogged: () => void;
+  onLogged: (itemId?: string) => void;
 }) {
   const [pending, start] = useTransition();
   return (
@@ -29,13 +29,13 @@ export function QuickProductList({
             disabled={pending}
             onClick={() =>
               start(async () => {
-                await logMyProduct({
+                const r = await logMyProduct({
                   ...where,
                   productId: p.id,
                   amount: p.basis === "per_serving" ? { servings: 1 } : { grams: p.servingSizeG ?? 100 },
                 });
                 toast.success(`${p.name}を記録しました`);
-                onLogged();
+                onLogged(r.itemId);
               })
             }
           >

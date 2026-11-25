@@ -90,3 +90,42 @@ test("記録を編集できる(量を変えると栄養値も増減する)", asy
   await expect(page.getByText(/を編集しています/)).toBeVisible();
   await expect(page.getByRole("button", { name: /木綿豆腐を外す/ })).toBeVisible();
 });
+
+test("記録に料理の写真を付け、ホームの写真から編集画面で大きく見られる", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "登録せずに試す" }).click();
+  await expect(page).toHaveURL(/\/home/, { timeout: 30_000 });
+
+  // テスト用の写真をブラウザで作る(JPEG)
+  const bytes = await page.evaluate(async () => {
+    const c = document.createElement("canvas");
+    c.width = 800;
+    c.height = 600;
+    const g = c.getContext("2d")!;
+    g.fillStyle = "#e8a050";
+    g.fillRect(0, 0, 800, 600);
+    const blob = await new Promise<Blob>((r) => c.toBlob((b) => r(b!), "image/jpeg", 0.9));
+    return [...new Uint8Array(await blob.arrayBuffer())];
+  });
+
+  await page.goto("/log?tab=manual&meal=snack");
+  await page
+    .locator('input[type="file"]')
+    .first()
+    .setInputFiles({
+      name: "snack.jpg",
+      mimeType: "image/jpeg",
+      buffer: Buffer.from(bytes),
+    });
+  await expect(page.getByRole("button", { name: "外す" })).toBeVisible();
+  await page.getByLabel("商品名・料理名").fill("写真つきのおやつ(E2E)");
+  await page.locator('input[id$="-ENERC_KCAL"]').fill("200");
+  await page
+    .getByRole("button", { name: /記録する/ })
+    .last()
+    .click();
+  await expect(page).toHaveURL(/\/home/, { timeout: 30_000 });
+
+  await page.getByRole("button", { name: "写真つきのおやつ(E2E)の写真を見る" }).click();
+  await expect(page.getByRole("dialog").getByRole("img", { name: "写真つきのおやつ(E2E)の写真" })).toBeVisible();
+});

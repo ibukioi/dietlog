@@ -32,7 +32,7 @@ export function ProductTab({
   where: Where;
   products: ProductSummary[];
   uploadsEnabled: boolean;
-  onLogged: () => void;
+  onLogged: (itemId?: string) => void;
   goTab: (t: string) => void;
 }) {
   const [q, setQ] = useState("");
@@ -110,13 +110,13 @@ export function ProductTab({
               toast.error("食べた量を入力してください");
               return;
             }
-            await saveAndLogProduct({
+            const r = await saveAndLogProduct({
               ...where,
               product: { ...d, nutrients: d.nutrients },
               amount: d.basis === "per_100g" ? { grams: g } : { servings: 1 },
             });
             toast.success(`${d.name}を記録しました`);
-            onLogged();
+            onLogged(r.itemId);
           }}
         />
         <p className="text-xs text-muted-foreground">

@@ -2,11 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { Field, NativeSelect } from "@/components/form-bits";
+import { MealPhotoField } from "@/components/meal-photo-field";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MEAL_TYPES, MEAL_TYPE_LABEL, type MealType } from "@/lib/dates";
+import { uploadMealPhoto } from "@/lib/image";
 
 import { DishTab } from "./dish-tab";
 import { HomeCookedTab } from "./home-cooked-tab";
@@ -54,7 +57,17 @@ export function LogClient(props: {
   const router = useRouter();
   const [where, setWhere] = useState<Where>({ date: props.initialDate, mealType: props.initialMeal });
   const [tab, setTab] = useState(props.initialTab);
-  const afterLog = () => router.push(`/home?date=${where.date}`);
+  const [photo, setPhoto] = useState<Blob | null>(null);
+  const afterLog = async (itemId?: string) => {
+    if (photo && itemId) {
+      try {
+        await uploadMealPhoto(itemId, photo);
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "写真を保存できませんでした");
+      }
+    }
+    router.push(`/home?date=${where.date}`);
+  };
 
   return (
     <div className="grid gap-4">
@@ -82,6 +95,7 @@ export function LogClient(props: {
             ))}
           </NativeSelect>
         </Field>
+        {!props.editTagId && <MealPhotoField value={photo} onChange={setPhoto} />}
       </div>
 
       <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>

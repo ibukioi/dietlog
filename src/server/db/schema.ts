@@ -6,7 +6,7 @@
  * - ユーザーデータは user_id を持ち ON DELETE CASCADE
  */
 import { sql } from "drizzle-orm";
-import { index, integer, primaryKey, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { blob, index, integer, primaryKey, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 import type { NutrientMap } from "@/domain/nutrients/types";
 
@@ -413,6 +413,24 @@ export const mealItem = sqliteTable(
     createdAt: createdAt(),
   },
   (t) => [index("meal_item_meal_idx").on(t.mealId), index("meal_item_user_idx").on(t.userId)],
+);
+
+/** 料理の写真(任意)。記録 1 件に 1 枚。縮小した画像を DB に保存し、本人だけが取得できる */
+export const mealPhoto = sqliteTable(
+  "meal_photo",
+  {
+    mealItemId: text("meal_item_id")
+      .primaryKey()
+      .references(() => mealItem.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    contentType: text("content_type").notNull(),
+    data: blob("data", { mode: "buffer" }).notNull(),
+    byteSize: integer("byte_size").notNull(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [index("meal_photo_user_idx").on(t.userId)],
 );
 
 export const dayStatus = sqliteTable(

@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Trash2 } from "lucide-react";
+import { Camera, Pencil, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useTransition } from "react";
 import { toast } from "sonner";
@@ -9,7 +9,7 @@ import { deleteMealItemAction } from "@/app/(app)/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MEAL_TYPE_LABEL, type MealType } from "@/lib/dates";
-import { EditMealItemButton, type EditableItem } from "@/components/edit-meal-item";
+import { type EditableItem, useMealItemEditor } from "@/components/edit-meal-item";
 import { MealIcon } from "@/components/food-illustrations";
 
 export interface MealListItem extends EditableItem {
@@ -23,9 +23,11 @@ function fmt(n: number | null, digits = 0) {
 
 function ItemRow({ item, editable, today }: { item: MealListItem; editable: boolean; today: string }) {
   const [pending, start] = useTransition();
+  const editor = useMealItemEditor(item, today);
   return (
-    <li className="flex items-start justify-between gap-3 py-2">
-      <div className="min-w-0">
+    <li className="flex items-start gap-3 py-2">
+      <MealThumb item={item} onOpen={editable ? editor.open : undefined} />
+      <div className="min-w-0 flex-1">
         <p className="truncate">{item.name}</p>
         <p className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
           <span>
@@ -48,7 +50,12 @@ function ItemRow({ item, editable, today }: { item: MealListItem; editable: bool
           <p className="font-num tabular-nums">{fmt(item.energyKcal)} kcal</p>
           <p className="text-xs text-muted-foreground tabular-nums">P {fmt(item.proteinG, 1)} g</p>
         </div>
-        {editable && <EditMealItemButton item={item} today={today} />}
+        {editable && (
+          <Button variant="ghost" size="icon-sm" aria-label={`${item.name}を編集`} onClick={editor.open}>
+            <Pencil />
+          </Button>
+        )}
+        {editor.dialog}
         {editable && (
           <Button
             variant="ghost"
@@ -70,6 +77,30 @@ function ItemRow({ item, editable, today }: { item: MealListItem; editable: bool
   );
 }
 
+/** 記録の前に出す小さな写真。写真がなければ追加用の枠(編集できる一覧だけ) */
+function MealThumb({ item, onOpen }: { item: MealListItem; onOpen?: () => void }) {
+  const frame = "size-11 shrink-0 overflow-hidden rounded-lg";
+  const img = item.photoUrl ? (
+    // eslint-disable-next-line @next/next/no-img-element -- 本人だけが取得できる API の画像なので next/image の最適化は使わない
+    <img src={item.photoUrl} alt="" loading="lazy" className="size-full object-cover" />
+  ) : null;
+  if (!onOpen) return img ? <div className={`${frame} border border-border`}>{img}</div> : null;
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={item.photoUrl ? `${item.name}の写真を見る` : `${item.name}に写真を追加`}
+      className={
+        item.photoUrl
+          ? `${frame} border border-border`
+          : `${frame} flex items-center justify-center border border-dashed border-input bg-[var(--brand-soft)]/40 text-muted-foreground hover:border-[var(--brand)] hover:text-[var(--brand)]`
+      }
+    >
+      {img ?? <Camera className="size-4" aria-hidden />}
+    </button>
+  );
+}
+
 export function MealSection({
   date,
   mealType,
@@ -85,7 +116,10 @@ export function MealSection({
 }) {
   const kcal = items.reduce((s, i) => s + (i.energyKcal ?? 0), 0);
   return (
-    <section className="rounded-2xl border border-border bg-white px-5 py-4" aria-labelledby={`meal-${mealType}`}>
+    <section
+      className="min-w-0 rounded-2xl border border-border bg-white px-5 py-4"
+      aria-labelledby={`meal-${mealType}`}
+    >
       <div className="flex items-center justify-between">
         <h3 id={`meal-${mealType}`} className="flex items-center gap-2 font-bold">
           <span className="inline-flex size-9 items-center justify-center rounded-full bg-[var(--brand-soft)]">

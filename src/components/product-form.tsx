@@ -8,6 +8,7 @@ import { Field, NativeSelect, parseNum } from "@/components/form-bits";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { nutrientDef } from "@/domain/nutrients/catalog";
+import { shrinkImage } from "@/lib/image";
 import type { NutrientMap } from "@/domain/nutrients/types";
 
 export const LABEL_FIELDS = ["ENERC_KCAL", "PROT-", "FAT-", "CHOCDF-", "NACL_EQ", "FIB-", "CA", "FE", "VITC"] as const;
@@ -37,19 +38,6 @@ export const emptyDraft = (): ProductDraft => ({
   imageBlobUrl: null,
 });
 
-/** 画像をクライアント側で長辺 1024px の JPEG に縮小(§11.1 画像サイズ上限 1MB) */
-async function shrink(file: File): Promise<Blob> {
-  const bmp = await createImageBitmap(file);
-  const scale = Math.min(1, 1024 / Math.max(bmp.width, bmp.height));
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.round(bmp.width * scale);
-  canvas.height = Math.round(bmp.height * scale);
-  canvas.getContext("2d")!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
-  return new Promise((resolve, reject) =>
-    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("画像を変換できませんでした"))), "image/jpeg", 0.82),
-  );
-}
-
 export function ProductForm({
   initial,
   submitLabel,
@@ -75,7 +63,7 @@ export function ProductForm({
   async function upload(file: File) {
     setUploading(true);
     try {
-      const blob = await shrink(file);
+      const blob = await shrinkImage(file);
       if (blob.size > 1_000_000) throw new Error("画像が大きすぎます(1MB まで)");
       const fd = new FormData();
       fd.set("file", blob, "label.jpg");

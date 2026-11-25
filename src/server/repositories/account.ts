@@ -56,6 +56,7 @@ export async function transferUserData(db: AppDb, fromUserId: string, toUserId: 
     }
     await tx.update(s.meal).set({ userId: toUserId }).where(eq(s.meal.userId, fromUserId));
     await tx.update(s.mealItem).set({ userId: toUserId }).where(eq(s.mealItem.userId, fromUserId));
+    await tx.update(s.mealPhoto).set({ userId: toUserId }).where(eq(s.mealPhoto.userId, fromUserId));
 
     const targetDays = await tx
       .select({ date: s.dayStatus.date })

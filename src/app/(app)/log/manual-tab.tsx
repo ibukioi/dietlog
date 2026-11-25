@@ -17,7 +17,7 @@ export function ManualTab({
 }: {
   where: Where;
   uploadsEnabled: boolean;
-  onLogged: () => void;
+  onLogged: (itemId?: string) => void;
 }) {
   const [amount, setAmount] = useState("1");
   return (
@@ -50,13 +50,13 @@ export function ManualTab({
             toast.error("食べた量を入力してください");
             return;
           }
-          await saveAndLogProduct({
+          const r = await saveAndLogProduct({
             ...where,
             product: d,
             amount: d.basis === "per_serving" ? { servings: a } : { grams: a },
           });
           toast.success(`${d.name}を記録しました`);
-          onLogged();
+          onLogged(r.itemId);
         }}
       />
     </div>

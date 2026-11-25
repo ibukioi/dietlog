@@ -19,7 +19,7 @@ export function DishTab({
   goTab,
 }: {
   where: Where;
-  onLogged: () => void;
+  onLogged: (itemId?: string) => void;
   goTab: (t: string) => void;
 }) {
   const [picked, setPicked] = useState<FoodHit | null>(null);
@@ -76,9 +76,9 @@ export function DishTab({
               disabled={pending || !g || g <= 0}
               onClick={() =>
                 start(async () => {
-                  await logMextDish({ ...where, foodNo: picked.foodNo, grams: g! });
+                  const r = await logMextDish({ ...where, foodNo: picked.foodNo, grams: g! });
                   toast.success(`${picked.nameDisplay}を記録しました`);
-                  onLogged();
+                  onLogged(r.itemId);
                 })
               }
             >

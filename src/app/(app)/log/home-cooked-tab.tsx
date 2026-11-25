@@ -95,7 +95,7 @@ export function HomeCookedTab({
   editItemId: string | null;
   /** タグだけを編集する(保存しても食事は記録しない) */
   editTagId: string | null;
-  onLogged: () => void;
+  onLogged: (itemId?: string) => void;
   /** タグの保存・削除のあと */
   onTagDone: () => void;
 }) {
@@ -305,14 +305,15 @@ export function HomeCookedTab({
         onTagDone();
         return;
       }
+      let itemId: string | undefined;
       if (editingItemId) {
-        await updateHomeCooked({ ...body, itemId: editingItemId });
+        itemId = (await updateHomeCooked({ ...body, itemId: editingItemId })).itemId;
         toast.success(`${name}を更新しました`);
       } else {
-        await logHomeCooked(body);
+        itemId = (await logHomeCooked(body)).itemId;
         toast.success(saveAsTag ? `${name}を記録し、タグに保存しました` : `${name}を記録しました`);
       }
-      onLogged();
+      onLogged(itemId);
     });
   }
 

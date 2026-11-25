@@ -18,10 +18,10 @@ import { mextItem, productItem, recipeItem } from "@/server/services/log-items";
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const where = z.object({ date: dateSchema, mealType: z.enum(MEAL_TYPES) });
 
-function done() {
+function done(itemId?: string) {
   revalidatePath("/home");
   revalidatePath("/history");
-  return { ok: true as const };
+  return { ok: true as const, itemId };
 }
 
 // --- 料理・惣菜(成分表の目安値) ---------------------------------------------
@@ -32,8 +32,8 @@ export async function logMextDish(input: z.infer<typeof mextDishSchema>) {
   const v = mextDishSchema.parse(input);
   const food = await getFood(v.foodNo);
   if (!food) throw new Error("食品が見つかりません");
-  await addMealItem(user.id, { date: v.date, mealType: v.mealType, ...mextItem(food, v.grams) });
-  return done();
+  const itemId = await addMealItem(user.id, { date: v.date, mealType: v.mealType, ...mextItem(food, v.grams) });
+  return done(itemId);
 }
 
 // --- 自分の商品マスタから ------------------------------------------------------
@@ -50,9 +50,9 @@ export async function logMyProduct(input: z.infer<typeof productLogSchema>) {
   const v = productLogSchema.parse(input);
   const p = await getMyProduct(user.id, v.productId);
   if (!p) throw new Error("商品が見つかりません");
-  await addMealItem(user.id, { date: v.date, mealType: v.mealType, ...productItem(p, v.amount) });
+  const itemId = await addMealItem(user.id, { date: v.date, mealType: v.mealType, ...productItem(p, v.amount) });
   await touchMyProduct(user.id, p.id);
-  return done();
+  return done(itemId);
 }
 
 // --- 手入力(パッケージの表示)・OFF の商品を保存して記録 -----------------------
@@ -110,9 +110,9 @@ export async function saveAndLogProduct(input: z.infer<typeof saveAndLogSchema>)
   const v = saveAndLogSchema.parse(input);
   const { id } = await saveProductAction(v.product);
   const p = await getMyProduct(user.id, id);
-  await addMealItem(user.id, { date: v.date, mealType: v.mealType, ...productItem(p!, v.amount) });
+  const itemId = await addMealItem(user.id, { date: v.date, mealType: v.mealType, ...productItem(p!, v.amount) });
   await touchMyProduct(user.id, id);
-  return done();
+  return done(itemId);
 }
 
 // --- 自炊 --------------------------------------------------------------------
@@ -175,7 +175,7 @@ export async function logHomeCooked(input: z.infer<typeof logHomeCookedSchema>) 
     await touchRecipe(user.id, recipeId);
     revalidatePath("/recipes");
   }
-  await addMealItem(user.id, {
+  const itemId = await addMealItem(user.id, {
     date: v.date,
     mealType: v.mealType,
     ...recipeItem({ id: recipeId ?? "", name: v.name }, result.perServing, v.eatenServings, {
@@ -185,7 +185,7 @@ export async function logHomeCooked(input: z.infer<typeof logHomeCookedSchema>) 
     }),
     recipeId,
   });
-  return done();
+  return done(itemId);
 }
 
 /** タグ(テンプレート)をワンタップで記録 */
@@ -206,13 +206,13 @@ export async function logRecipe(input: z.infer<typeof logRecipeSchema>) {
     consumeAll: i.consumeAll,
   }));
   const result = await calculateHomeCooked(specs, r.servings);
-  await addMealItem(user.id, {
+  const itemId = await addMealItem(user.id, {
     date: v.date,
     mealType: v.mealType,
     ...recipeItem(r, result.perServing, v.eatenServings, { ...traceOf(result), specs, servings: r.servings }),
   });
   await touchRecipe(user.id, r.id);
-  return done();
+  return done(itemId);
 }
 
 /** タグ(レシピ)を自炊フォームに読み込む */
@@ -319,7 +319,7 @@ export async function updateHomeCooked(input: z.infer<typeof updateHomeCookedSch
   });
   if (!ok) throw new Error("記録が見つかりません");
   revalidatePath("/analysis");
-  return done();
+  return done(v.itemId);
 }
 
 // --- タグの編集(記録はしない) -------------------------------------------------

@@ -11,6 +11,7 @@ import { nutrientLabel, nutrientDef } from "@/domain/nutrients/catalog";
 import { cn } from "@/lib/utils";
 import { MEAL_TYPES, formatJaDate, isIsoDate, shiftIso, todayIso } from "@/lib/dates";
 import { requireUser } from "@/server/auth/session";
+import { listMealPhotoUrls } from "@/server/repositories/meal-photos";
 import { getDaySummary } from "@/server/services/daily";
 
 export const metadata: Metadata = { title: "ホーム" };
@@ -21,6 +22,10 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
   const today = todayIso();
   const date = isIsoDate(qd) && qd <= today ? qd : today;
   const day = await getDaySummary(user.id, date);
+  const photos = await listMealPhotoUrls(
+    user.id,
+    [...day.byMeal.values()].flatMap((items) => items.map((i) => i.id)),
+  );
   const homeGauges = day.gauges.filter((g) => g.goal.showOnHome);
   const subGauges = day.gauges.filter((g) => !g.goal.showOnHome).slice(0, 6);
 
@@ -56,7 +61,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
         </Link>
       </div>
 
-      <div className="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+      <div className="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] [&>*]:min-w-0">
         <section className="status-window relative grid gap-6 overflow-hidden p-6" aria-labelledby="status-title">
           <Fish className="pointer-events-none absolute -right-3 -bottom-2 w-24 rotate-[-8deg] opacity-90" />
           <div className="flex items-baseline justify-between">
@@ -137,6 +142,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
                   mealType: i.mealType,
                   kind: i.kind,
                   cookEditable: i.kind === "home_cooked" && (Array.isArray(trace.specs) || Boolean(i.recipeId)),
+                  photoUrl: photos.get(i.id) ?? null,
                   energyKcal: i.energyKcal,
                   proteinG: i.proteinG,
                   fatG: i.fatG,
