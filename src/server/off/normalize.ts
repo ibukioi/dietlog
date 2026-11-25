@@ -101,7 +101,9 @@ export function normalizeOffProduct(p: OffProduct): OffCandidate | null {
   if (sugars.success && typeof c === "number" && sugars.data > c + 0.5)
     warnings.push("糖類が炭水化物より多く記載されています");
 
-  const brand = Array.isArray(p.brands) ? p.brands[0] : (p.brands?.split(",")[0] ?? null);
+  // 新しい検索 API はブランドに言語の接頭辞(例: "xx:伊藤ハム")が付くので外す
+  const rawBrand = Array.isArray(p.brands) ? p.brands[0] : (p.brands?.split(",")[0] ?? null);
+  const brand = rawBrand?.replace(/^[a-z]{2,3}:/, "") ?? null;
   return {
     code: p.code,
     name,

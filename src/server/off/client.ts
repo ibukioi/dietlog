@@ -13,21 +13,52 @@ import { type OffCandidate, normalizeOffProduct, normalizeOffQuery, offProductSc
 
 /**
  * Open Food Facts のキーワード検索(§7.2)
- * - 旧検索 API(cgi/search.pl): 日本語の検索精度が実用的。新検索 API は日本語で当たらないため使わない
+ * - 新しい検索 API(search-a-licious)を優先する。2026-11 時点で日本語でも当たり、
+ *   旧検索 API(cgi/search.pl)は 503 が続くことがあるため。旧検索は失敗時の予備
+ * - 同じ栄養素のキー(nutriments.*_100g)を返すので、正規化は共通
  * - 全ユーザー共有の DB キャッシュ(検索 7 日 / 商品 30 日)
  * - 外向きはアプリ全体で 8 回/分(公式の上限は検索 10 回/分/IP。余裕を残す)
- * - OFF の検索は一時的に 503 を返すことが多いので 1 回だけ再試行し、
- *   それでも失敗したら 15 秒止める(サーキットブレーカー)
+ * - 新しい検索が失敗したら旧検索を試し、両方失敗したら 15 秒止める(サーキットブレーカー)
  */
-const SEARCH_URL = "https://world.openfoodfacts.org/cgi/search.pl";
 const FIELDS = "code,product_name,product_name_ja,brands,quantity,serving_size,countries_tags,nutriments";
+const SOURCES = [
+  {
+    name: "search-a-licious",
+    url: (q: string) => {
+      const url = new URL("https://search.openfoodfacts.org/search");
+      url.search = new URLSearchParams({ q, langs: "ja", page_size: "30", fields: FIELDS }).toString();
+      return url;
+    },
+    list: (body: unknown) => listOf(body, "hits"),
+  },
+  {
+    name: "legacy",
+    url: (q: string) => {
+      const url = new URL("https://world.openfoodfacts.org/cgi/search.pl");
+      url.search = new URLSearchParams({
+        search_terms: q,
+        search_simple: "1",
+        action: "process",
+        json: "1",
+        page_size: "30",
+        fields: FIELDS,
+      }).toString();
+      return url;
+    },
+    list: (body: unknown) => listOf(body, "products"),
+  },
+] as const;
+
+function listOf(body: unknown, key: "hits" | "products"): unknown[] | null {
+  const parsed = z.object({ [key]: z.array(z.unknown()).default([]) }).safeParse(body);
+  return parsed.success ? (parsed.data[key] as unknown[]) : null;
+}
 const SEARCH_TTL = 7 * 86_400_000;
 const PRODUCT_TTL = 30 * 86_400_000;
 const GLOBAL_LIMIT_PER_MIN = 8;
 const CIRCUIT_MS = 15_000;
-const TIMEOUT_MS = 3_000;
-const MAX_ATTEMPTS = 2;
-const RETRY_DELAY_MS = 600;
+// 東京(hnd1)からフランスの OFF まで往復するので、数秒かかる前提にする
+const TIMEOUT_MS = 8_000;
 const UNAVAILABLE = "Open Food Facts が混み合っています。15 秒ほど待って再検索するか、手入力で記録できます。";
 
 export type OffSearchResult =
@@ -73,36 +104,22 @@ async function searchOffOnce(q: string, key: string, now: number): Promise<OffSe
 
   if (await isCircuitOpen("off", now)) return { status: "unavailable", message: UNAVAILABLE };
 
-  const url = new URL(SEARCH_URL);
-  url.search = new URLSearchParams({
-    search_terms: q,
-    search_simple: "1",
-    action: "process",
-    json: "1",
-    page_size: "30",
-    fields: FIELDS,
-  }).toString();
-
-  let res: Response | null = null;
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS && !res; attempt++) {
-    if (attempt > 1) await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
+  let raws: unknown[] | null = null;
+  for (const source of SOURCES) {
     if (!(await takeToken("off_search_global", GLOBAL_LIMIT_PER_MIN, 60_000, now))) {
       return { status: "busy", message: "混み合っています。数秒後に再検索するか、手入力をご利用ください。" };
     }
-    res = await fetchSearch(url);
+    raws = await fetchSearch(source, q);
+    if (raws) break;
   }
-  if (!res) {
+  if (!raws) {
     await openCircuit("off", CIRCUIT_MS, now);
     return { status: "unavailable", message: UNAVAILABLE };
-  }
-  const body = z.object({ products: z.array(z.unknown()).default([]) }).safeParse(await res.json().catch(() => null));
-  if (!body.success) {
-    return { status: "unavailable", message: "Open Food Facts の応答を読み取れませんでした。手入力で記録できます。" };
   }
 
   const products: OffCandidate[] = [];
   const fetchedAt = new Date(now);
-  for (const raw of body.data.products) {
+  for (const raw of raws) {
     const parsed = offProductSchema.safeParse(raw);
     if (!parsed.success) continue;
     const cand = normalizeOffProduct(parsed.data);
@@ -127,17 +144,23 @@ async function searchOffOnce(q: string, key: string, now: number): Promise<OffSe
   return { status: "ok", source: "live", products };
 }
 
-/** 成功(2xx)の応答だけを返す。503・429・タイムアウトなどは null */
-async function fetchSearch(url: URL): Promise<Response | null> {
+/** 成功した検索の商品一覧を返す。503・429・タイムアウト・形式違いは理由をログに残して null */
+async function fetchSearch(source: (typeof SOURCES)[number], q: string): Promise<unknown[] | null> {
+  const started = Date.now();
+  const fail = (reason: string) => {
+    console.warn(`[off] ${source.name} search failed: ${reason} ms=${Date.now() - started}`);
+    return null;
+  };
   try {
-    const res = await fetch(url, {
+    const res = await fetch(source.url(q), {
       headers: { "User-Agent": process.env.OFF_USER_AGENT || "dietlog/0.1" },
       signal: AbortSignal.timeout(TIMEOUT_MS),
       cache: "no-store",
     });
-    return res.ok ? res : null;
-  } catch {
-    return null;
+    if (!res.ok) return fail(`status=${res.status}`);
+    return source.list(await res.json().catch(() => null)) ?? fail("unexpected body");
+  } catch (e) {
+    return fail(`error=${e instanceof Error ? e.name : "unknown"}`);
   }
 }
 
