@@ -111,6 +111,8 @@ export const profile = sqliteTable("profile", {
   /** 鉄の基準値(月経あり/なし)の選択に使う。女性 18〜64 歳のみ意味を持つ */
   menstruation: integer("menstruation", { mode: "boolean" }).notNull().default(false),
   timezone: text("timezone").notNull().default("Asia/Tokyo"),
+  /** お試し開始時に入れたサンプル。本登録時に引き継がない。利用者が編集すると false になる */
+  isSample: integer("is_sample", { mode: "boolean" }).notNull().default(false),
   updatedAt: updatedAt(),
 });
 
@@ -302,6 +304,8 @@ export const myProduct = sqliteTable(
     isEstimate: integer("is_estimate", { mode: "boolean" }).notNull().default(false),
     useCount: integer("use_count").notNull().default(0),
     lastUsedAt: integer("last_used_at", { mode: "timestamp_ms" }),
+    /** お試し開始時に入れたサンプル。本登録時に引き継がない。利用者が編集すると false になる */
+    isSample: integer("is_sample", { mode: "boolean" }).notNull().default(false),
     createdAt: createdAt(),
   },
   (t) => [
@@ -327,6 +331,8 @@ export const recipe = sqliteTable(
     color: text("color"),
     useCount: integer("use_count").notNull().default(0),
     lastUsedAt: integer("last_used_at", { mode: "timestamp_ms" }),
+    /** お試し開始時に入れたサンプル。本登録時に引き継がない。利用者が編集すると false になる */
+    isSample: integer("is_sample", { mode: "boolean" }).notNull().default(false),
     createdAt: createdAt(),
   },
   (t) => [index("recipe_user_idx").on(t.userId)],
@@ -402,6 +408,8 @@ export const mealItem = sqliteTable(
     isEstimate: integer("is_estimate", { mode: "boolean" }).notNull().default(false),
     sourceLabel: text("source_label"),
     datasetVersionId: text("dataset_version_id"),
+    /** お試し開始時に入れたサンプル。本登録時に引き継がない。利用者が編集すると false になる */
+    isSample: integer("is_sample", { mode: "boolean" }).notNull().default(false),
     createdAt: createdAt(),
   },
   (t) => [index("meal_item_meal_idx").on(t.mealId), index("meal_item_user_idx").on(t.userId)],

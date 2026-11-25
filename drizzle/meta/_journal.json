@@ -22,6 +22,13 @@
       "when": 1795402793962,
       "tag": "0002_faithful_swarm",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1795568303496,
+      "tag": "0003_crazy_korath",
+      "breakpoints": true
     }
   ]
 }

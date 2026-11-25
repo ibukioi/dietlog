@@ -7,6 +7,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { eq } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 const dir = mkdtempSync(path.join(tmpdir(), "dietlog-test-"));
@@ -303,12 +304,69 @@ describe("お試しモード", () => {
     expect(r.expires.getTime() - now.getTime()).toBe(14 * 86_400_000);
   }, 60_000);
 
-  it("本登録で記録を引き継ぐ", async () => {
+  it("本登録では自分の記録だけを引き継ぎ、サンプルは引き継がない", async () => {
+    const sampleItems = await m.meals.listItemsInRange("guest1", "2026-11-01", "2026-11-30");
+    expect(sampleItems.every((i) => i.isSample)).toBe(true);
+    const sampleRecipes = await m.recipes.listRecipes("guest1");
+    expect(sampleRecipes.length).toBeGreaterThan(1);
+
+    // 自分の記録: 新しく記録したもの、サンプルのタグで記録したもの、編集したサンプル
+    await m.meals.addMealItem("guest1", item("自分で記録した昼食"));
+    const usedRecipe = sampleRecipes[0];
+    await m.meals.addMealItem("guest1", {
+      ...item("サンプルのタグで記録"),
+      date: "2026-11-21",
+      mealType: "dinner",
+      kind: "home_cooked",
+      recipeId: usedRecipe.id,
+    });
+    const edited = sampleItems[0];
+    await m.meals.updateMealItem("guest1", edited.id, { quantity: edited.quantity * 2 });
+
     await createUser("member1", false);
     await m.account.transferUserData(m.db, "guest1", "member1");
-    expect(await m.meals.listItemsInRange("guest1", "2026-11-01", "2026-11-30")).toHaveLength(0);
-    expect((await m.meals.listItemsInRange("member1", "2026-11-01", "2026-11-30")).length).toBeGreaterThan(30);
+
+    const moved = await m.meals.listItemsInRange("member1", "2026-11-01", "2026-11-30");
+    expect(moved.map((i) => i.nameSnapshot).sort()).toEqual(
+      ["自分で記録した昼食", "サンプルのタグで記録", edited.nameSnapshot].sort(),
+    );
+    expect(moved.every((i) => !i.isSample)).toBe(true);
+    // 使ったサンプルのタグだけが残り、利用者のタグになる
+    const recipes = await m.recipes.listRecipes("member1");
+    expect(recipes.map((r) => r.id)).toEqual([usedRecipe.id]);
+    expect(recipes[0].isSample).toBe(false);
+    expect(await m.products.listMyProducts("member1")).toHaveLength(0);
+    // サンプルのプロフィール・目標は引き継がない(本登録後にプロフィールを入力する)
+    expect(await m.db.select().from(m.s.profile).where(eq(m.s.profile.userId, "member1"))).toHaveLength(0);
+    expect(await m.db.select().from(m.s.nutritionGoal).where(eq(m.s.nutritionGoal.userId, "member1"))).toHaveLength(0);
+    // 中身がサンプルだけだった食事は消える
+    const meals = await m.db.select().from(m.s.meal).where(eq(m.s.meal.userId, "guest1"));
+    expect(meals).toHaveLength(0);
   });
+
+  it("自分で保存したプロフィールは本登録で引き継ぐ", async () => {
+    await createUser("guest4", true);
+    await m.guest.seedGuest("guest4", new Date("2026-11-22T03:00:00Z"));
+    const [sample] = await m.db.select().from(m.s.profile).where(eq(m.s.profile.userId, "guest4"));
+    expect(sample.isSample).toBe(true);
+    const input = {
+      birthYearMonth: sample.birthYearMonth,
+      sex: sample.sex,
+      heightCm: sample.heightCm,
+      weightKg: sample.weightKg,
+      activityLevel: sample.activityLevel,
+      lifeStage: sample.lifeStage,
+      menstruation: sample.menstruation,
+      timezone: sample.timezone,
+    };
+    const profile = await import("@/server/repositories/profile");
+    await profile.upsertProfile("guest4", { ...input, heightCm: 171 });
+
+    await createUser("member4", false);
+    await m.account.transferUserData(m.db, "guest4", "member4");
+    const [moved] = await m.db.select().from(m.s.profile).where(eq(m.s.profile.userId, "member4"));
+    expect(moved).toMatchObject({ heightCm: 171, isSample: false });
+  }, 60_000);
 
   it("既存アカウントにログインしても、同じ日・食事・商品が重なったまま引き継げる", async () => {
     await createUser("guest2", true);

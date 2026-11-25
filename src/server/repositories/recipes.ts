@@ -55,7 +55,8 @@ export async function saveRecipe(
     if (recipeId) {
       const res = await tx
         .update(s.recipe)
-        .set(data)
+        // 編集したサンプルのタグは利用者のタグとして扱う
+        .set({ ...data, isSample: false })
         .where(and(eq(s.recipe.id, recipeId), eq(s.recipe.userId, userId)))
         .returning({ id: s.recipe.id });
       if (!res.length) throw new Error("not found");

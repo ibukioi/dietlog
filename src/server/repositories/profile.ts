@@ -19,7 +19,8 @@ export async function upsertProfile(userId: string, input: ProfileInput) {
   await db
     .insert(s.profile)
     .values({ ...input, userId })
-    .onConflictDoUpdate({ target: s.profile.userId, set: { ...input, updatedAt: new Date() } });
+    // 利用者が保存したプロフィールはサンプルではない(本登録時に引き継ぐ)
+    .onConflictDoUpdate({ target: s.profile.userId, set: { ...input, isSample: false, updatedAt: new Date() } });
 }
 
 export function profileAge(p: Profile, today = new Date()) {

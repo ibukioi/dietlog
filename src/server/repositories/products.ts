@@ -40,7 +40,8 @@ export async function saveMyProduct(userId: string, input: MyProductInput, id?: 
   if (id) {
     const res = await db
       .update(s.myProduct)
-      .set(input)
+      // 編集したサンプルの商品は利用者の商品として扱う
+      .set({ ...input, isSample: false })
       .where(and(eq(s.myProduct.id, id), eq(s.myProduct.userId, userId)))
       .returning({ id: s.myProduct.id });
     if (!res.length) throw new Error("not found");
@@ -58,7 +59,10 @@ export async function saveMyProduct(userId: string, input: MyProductInput, id?: 
         ),
       );
     if (existing) {
-      await db.update(s.myProduct).set(input).where(eq(s.myProduct.id, existing.id));
+      await db
+        .update(s.myProduct)
+        .set({ ...input, isSample: false })
+        .where(eq(s.myProduct.id, existing.id));
       return existing.id;
     }
   }

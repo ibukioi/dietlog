@@ -138,6 +138,7 @@ export async function seedGuest(userId: string, now = new Date()) {
           isEstimate: body.isEstimate,
           sourceLabel: body.sourceLabel,
           datasetVersionId: body.datasetVersionId ?? null,
+          isSample: true,
         });
       }
     }
@@ -145,6 +146,10 @@ export async function seedGuest(userId: string, now = new Date()) {
   await db.transaction(async (tx) => {
     if (mealRows.length) await tx.insert(s.meal).values(mealRows);
     if (itemRows.length) await tx.insert(s.mealItem).values(itemRows);
+    // 開始直後のお試しユーザーにはサンプルしかないので、プロフィール・タグ・商品をまとめて印を付ける
+    await tx.update(s.profile).set({ isSample: true }).where(eq(s.profile.userId, userId));
+    await tx.update(s.recipe).set({ isSample: true }).where(eq(s.recipe.userId, userId));
+    await tx.update(s.myProduct).set({ isSample: true }).where(eq(s.myProduct.userId, userId));
   });
 
   const expires = new Date(now.getTime() + GUEST_TTL_DAYS * 24 * 60 * 60 * 1000);

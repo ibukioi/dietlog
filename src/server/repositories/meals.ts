@@ -142,6 +142,8 @@ export async function updateMealItem(userId: string, id: string, patch: MealItem
     .update(s.mealItem)
     .set({
       mealId,
+      // 編集したサンプルは利用者の記録として扱う(本登録時に引き継ぐ)
+      isSample: false,
       ...(patch.name !== undefined && { nameSnapshot: patch.name }),
       ...(patch.quantity !== undefined && { quantity: patch.quantity }),
       ...(patch.grams !== undefined && { grams: patch.grams }),
