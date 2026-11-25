@@ -15,15 +15,20 @@ import { type OffCandidate, normalizeOffProduct, normalizeOffQuery, offProductSc
  * Open Food Facts のキーワード検索(§7.2)
  * - 旧検索 API(cgi/search.pl): 日本語の検索精度が実用的。新検索 API は日本語で当たらないため使わない
  * - 全ユーザー共有の DB キャッシュ(検索 7 日 / 商品 30 日)
- * - 外向きはアプリ全体で 3 回/分。503 を受けたら 60 秒止める(サーキットブレーカー)
+ * - 外向きはアプリ全体で 8 回/分(公式の上限は検索 10 回/分/IP。余裕を残す)
+ * - OFF の検索は一時的に 503 を返すことが多いので 1 回だけ再試行し、
+ *   それでも失敗したら 15 秒止める(サーキットブレーカー)
  */
 const SEARCH_URL = "https://world.openfoodfacts.org/cgi/search.pl";
 const FIELDS = "code,product_name,product_name_ja,brands,quantity,serving_size,countries_tags,nutriments";
 const SEARCH_TTL = 7 * 86_400_000;
 const PRODUCT_TTL = 30 * 86_400_000;
-const GLOBAL_LIMIT_PER_MIN = 3;
-const CIRCUIT_MS = 60_000;
+const GLOBAL_LIMIT_PER_MIN = 8;
+const CIRCUIT_MS = 15_000;
 const TIMEOUT_MS = 3_000;
+const MAX_ATTEMPTS = 2;
+const RETRY_DELAY_MS = 600;
+const UNAVAILABLE = "Open Food Facts が混み合っています。15 秒ほど待って再検索するか、手入力で記録できます。";
 
 export type OffSearchResult =
   | { status: "ok"; source: "cache" | "live"; products: OffCandidate[] }
@@ -66,12 +71,7 @@ async function searchOffOnce(q: string, key: string, now: number): Promise<OffSe
   const cached = await readCache(key, now);
   if (cached) return { status: "ok", source: "cache", products: cached };
 
-  if (await isCircuitOpen("off", now)) {
-    return { status: "unavailable", message: "Open Food Facts に接続できません。少し待つか、手入力で記録できます。" };
-  }
-  if (!(await takeToken("off_search_global", GLOBAL_LIMIT_PER_MIN, 60_000, now))) {
-    return { status: "busy", message: "混み合っています。数秒後に再検索するか、手入力をご利用ください。" };
-  }
+  if (await isCircuitOpen("off", now)) return { status: "unavailable", message: UNAVAILABLE };
 
   const url = new URL(SEARCH_URL);
   url.search = new URLSearchParams({
@@ -83,20 +83,17 @@ async function searchOffOnce(q: string, key: string, now: number): Promise<OffSe
     fields: FIELDS,
   }).toString();
 
-  let res: Response;
-  try {
-    res = await fetch(url, {
-      headers: { "User-Agent": process.env.OFF_USER_AGENT || "dietlog/0.1" },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-      cache: "no-store",
-    });
-  } catch {
-    await openCircuit("off", CIRCUIT_MS, now);
-    return { status: "unavailable", message: "Open Food Facts に接続できません。少し待つか、手入力で記録できます。" };
+  let res: Response | null = null;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS && !res; attempt++) {
+    if (attempt > 1) await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
+    if (!(await takeToken("off_search_global", GLOBAL_LIMIT_PER_MIN, 60_000, now))) {
+      return { status: "busy", message: "混み合っています。数秒後に再検索するか、手入力をご利用ください。" };
+    }
+    res = await fetchSearch(url);
   }
-  if (res.status === 503 || res.status === 429 || !res.ok) {
+  if (!res) {
     await openCircuit("off", CIRCUIT_MS, now);
-    return { status: "unavailable", message: "Open Food Facts が混み合っています。少し待つか、手入力で記録できます。" };
+    return { status: "unavailable", message: UNAVAILABLE };
   }
   const body = z.object({ products: z.array(z.unknown()).default([]) }).safeParse(await res.json().catch(() => null));
   if (!body.success) {
@@ -128,6 +125,20 @@ async function searchOffOnce(q: string, key: string, now: number): Promise<OffSe
       set: { codesJson: products.map((p) => p.code), fetchedAt },
     });
   return { status: "ok", source: "live", products };
+}
+
+/** 成功(2xx)の応答だけを返す。503・429・タイムアウトなどは null */
+async function fetchSearch(url: URL): Promise<Response | null> {
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": process.env.OFF_USER_AGENT || "dietlog/0.1" },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+      cache: "no-store",
+    });
+    return res.ok ? res : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function getCachedOffProduct(code: string): Promise<OffCandidate | null> {

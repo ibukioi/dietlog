@@ -205,6 +205,75 @@ describe("食品・商品の検索(漢字・かな)", () => {
   });
 });
 
+describe("Open Food Facts の混雑時の動き", () => {
+  const product = (code: string, name: string) => ({ code, product_name: name, nutriments: {} });
+  const ok = (products: unknown[]) => new Response(JSON.stringify({ products }), { status: 200 });
+  const down = () => new Response("Page temporarily unavailable", { status: 503 });
+
+  async function withFetch(handler: (term: string) => Response) {
+    const { searchOff } = await import("@/server/off/client");
+    const terms: string[] = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: string | URL | Request) => {
+        const term = new URL(String(input)).searchParams.get("search_terms")!;
+        terms.push(term);
+        return handler(term);
+      }),
+    );
+    return { searchOff, terms };
+  }
+
+  it("かな表記で探し直したあとでも、続けて別の商品を検索できる", async () => {
+    const now = Date.UTC(2030, 0, 1, 0, 0, 5);
+    const { searchOff, terms } = await withFetch((term) =>
+      term === "検証用の焼きそば" ? ok([product("4900000000101", "検証用の焼きそば")]) : ok([]),
+    );
+    try {
+      expect((await searchOff("鶏軟骨", now)).status).toBe("ok");
+      expect(terms.length).toBe(3);
+      const second = await searchOff("検証用の焼きそば", now + 1_000);
+      expect(second).toMatchObject({ status: "ok", source: "live" });
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it("一時的な 503 は 1 回だけ再試行する", async () => {
+    const now = Date.UTC(2030, 0, 1, 0, 10, 5);
+    let calls = 0;
+    const { searchOff } = await withFetch(() =>
+      ++calls === 1 ? down() : ok([product("4900000000102", "検証用のポテト")]),
+    );
+    try {
+      const r = await searchOff("検証用のポテト", now);
+      expect(r).toMatchObject({ status: "ok", products: [{ name: "検証用のポテト" }] });
+      expect(calls).toBe(2);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it("続けて失敗したら少しだけ止め、15 秒後には検索を再開する", async () => {
+    const now = Date.UTC(2030, 0, 1, 0, 20, 5);
+    let available = false;
+    const { searchOff, terms } = await withFetch(() =>
+      available ? ok([product("4900000000103", "検証用のおにぎり")]) : down(),
+    );
+    try {
+      expect((await searchOff("検証用のおにぎり", now)).status).toBe("unavailable");
+      expect(terms.length).toBe(2);
+      expect((await searchOff("検証用のおにぎり", now + 5_000)).status).toBe("unavailable");
+      expect(terms.length).toBe(2);
+      available = true;
+      const r = await searchOff("検証用のおにぎり", now + 16_000);
+      expect(r).toMatchObject({ status: "ok", source: "live" });
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+});
+
 describe("お試しモード", () => {
   it("サンプルデータは今日から相対の日付で入る", async () => {
     await createUser("guest1", true);

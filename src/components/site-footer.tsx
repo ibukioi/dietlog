@@ -37,6 +37,18 @@ export function SiteFooter() {
             出典・クレジット・注意事項
           </Link>
         </p>
+        <p className="border-t border-border pt-3">
+          © 2026 dietlog · Made by{" "}
+          <a
+            className="underline underline-offset-2"
+            href="https://github.com/ibukioi/dietlog"
+            target="_blank"
+            rel="noreferrer"
+          >
+            ibukioi
+          </a>{" "}
+          with Claude Code
+        </p>
       </div>
     </footer>
   );
