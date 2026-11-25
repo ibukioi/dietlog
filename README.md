@@ -5,7 +5,7 @@
 > 個人が就職活動用のポートフォリオとして制作した非公式プロジェクトです。特定の企業とは関係ありません。表示される分析は参考情報であり、医療に代わるものではありません。
 
 - **デモ**: [dietlog-nine.vercel.app](https://dietlog-nine.vercel.app) — 「登録せずに試す」を押すと、6日分のサンプル記録が入った状態ですぐに使えます
-- 設計書: [docs/architecture.md](docs/architecture.md) / 実装時の判断: [docs/adr/](docs/adr/)
+- 設計書: [docs/architecture.md](docs/architecture.md) / 実装時の判断: [docs/adr/](docs/adr/)(公開後の変更は [ADR 0003](docs/adr/0003-post-launch-changes.md))
 
 ## 主な機能
 
@@ -27,21 +27,23 @@ flowchart LR
   subgraph Browser[ブラウザ PC/スマホ]
     UI[React UI<br/>shadcn/ui・HPゲージ・Recharts]
   end
-  subgraph Vercel[Vercel / Next.js 16 App Router]
+  subgraph Vercel[Vercel / Next.js 16 App Router 東京 hnd1]
     RSC[Server Components<br/>画面・集計]
     SA[Server Actions<br/>記録・保存]
     RH[Route Handlers<br/>食品検索・OFF・Cron]
+    K[kuromoji<br/>食品名の読み]
     D[domain/<br/>計算・判定の純粋関数]
     S[server/<br/>repositories・services・auth]
   end
-  T[(Turso / libSQL)]
+  T[(Turso / libSQL 東京)]
   B[(Vercel Blob)]
-  OFF[(Open Food Facts)]
+  OFF[(Open Food Facts<br/>search-a-licious・旧検索は予備)]
   C[[Vercel Cron 1日1回]]
   UI --> RSC & SA & RH
   RSC & SA --> D
   RSC & SA & RH --> S --> T
   RH --> B
+  RH --> K
   RH -->|キャッシュミス時のみ| OFF
   C --> RH
 ```
@@ -53,7 +55,8 @@ flowchart LR
 | 認証 | Better Auth(anonymous プラグインでお試しモード、GitHub OAuth で本登録) |
 | UI | Tailwind CSS v4 + shadcn/ui、グラフは Recharts、HP ゲージは自作 |
 | テスト | Vitest(ユニット・DB 結合)、Playwright(E2E、PC とスマホの表示サイズ) |
-| デプロイ | Vercel(Cron でお試しデータを削除)、画像は Vercel Blob |
+| デプロイ | Vercel(東京リージョン、`main` への push で自動デプロイ、Cron でお試しデータを削除)、画像は Vercel Blob |
+| 検索 | kuromoji で食品名の読みを作り、漢字・ひらがな・カタカナのどれでも検索できる |
 
 ```
 src/
@@ -140,8 +143,8 @@ pnpm lint && pnpm typecheck
 ## デプロイ(Vercel + Turso)
 
 1. Turso でデータベースを作成し、`DATABASE_URL`(`libsql://…`)と `DATABASE_AUTH_TOKEN` を取得
-2. 本番 DB に `DATABASE_URL=… DATABASE_AUTH_TOKEN=… pnpm db:migrate && pnpm db:seed`
-3. Vercel にリポジトリをインポートし、環境変数を設定(`.env.example` 参照)。`BETTER_AUTH_URL` は本番 URL
+2. 本番 DB に `DATABASE_URL=… DATABASE_AUTH_TOKEN=… pnpm db:migrate && pnpm db:seed`(既存の DB を更新するときは、続けて `pnpm tsx scripts/db/backfill-food-readings.ts` で食品名の読みを埋める)
+3. Vercel にリポジトリをインポートし、環境変数を設定(`.env.example` 参照)。`BETTER_AUTH_URL` は本番 URL。Functions のリージョンは DB と同じ地域(東京なら `hnd1`)にする
 4. (任意)GitHub OAuth App を作成し、callback URL `https://<本番ドメイン>/api/auth/callback/github` を登録して `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` を設定
 5. (任意)Vercel Blob を作成して `BLOB_READ_WRITE_TOKEN` を設定(商品写真の添付)
 6. `vercel.json` の Cron(1日1回)でお試しデータを削除。`CRON_SECRET` を設定
